@@ -1,0 +1,15 @@
+{
+    "name": "M F A Checker",
+    "description": "created for tisting the samel interactions and SDK",
+    "type": "project",
+    "license": "AGPL",
+    "authors": [
+        {
+            "name": "Navid Shokri"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^5.4"
+    }
+}

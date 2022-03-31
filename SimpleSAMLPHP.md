@@ -1,0 +1,130 @@
+# Installation and configuration of  *Simple SAML php*
+
+- Download the latest version of SSP from [this](https://github.com/simplesamlphp/simplesamlphp/releases/download/v1.19.5/simplesamlphp-1.19.5.tar.gz) link.
+- Extract the compressed file into /var/www folder.
+- install the prerequisties by executing this command: 
+    
+    > sudo apt -y install php-xml php-mbstring php-curl apache2 mysql-server php-date php-xml php-json php-mysql libapache2-mod-php
+
+- Enable Apache mysql and ssl modules:
+    
+    > a2enmod ssl php7.2
+
+- Generate self signed certificate for secure hosting:
+    
+    > openssl req -nodes -x509 -newkey rsa:4096 -keyout /etc/ssl/private/key.pem -out /etc/ssl/private/cert.pem -days 365
+
+- Restart the required services
+    
+    > systemctl restart apache2 mysql
+
+- configure apache by these steps: 
+    - Create **samlidp-ssl.conf** inside **/etc/apache2/sites-available** folder.
+    - Add insert this configuration inside **samlidp-ssl.conf**:
+            
+            <VirtualHost *:443>
+                ServerName samlidp.localhost
+
+                ServerAdmin webmaster@localhost
+                DocumentRoot /var/www/html
+
+                ErrorLog ${APACHE_LOG_DIR}/error.log
+                CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+                SSLCertificateFile /etc/ssl/private/cert.pem
+                SSLCertificateKeyFile /etc/ssl/private/key.pem
+
+                SetEnv SIMPLESAMLPHP_CONFIG_DIR /var/www/simplesamlphp/config
+
+                Alias /simplesaml /var/www/simplesamlphp/www
+                <Directory /var/www/simplesamlphp/www/>
+                        Require all granted
+                </Directory>
+            </VirtualHost>
+    
+    - Create a database inside MySQL server I named it **saml**  
+ 
+- Configure SimpleSAMLphp by changing below variables in `/var/www/simplesamlphp/config/config.php`: 
+
+    - `auth.adminpassword` - Set a password. If you’d like to encrypt it (recommended) run /var/simplesamlphp/bin/pwgen.php and use it’s output as a value here.
+    - `secretsalt` - A secret key. Use openssl rand -base64 32 to generate a random value to go here (use this to hash users passwords inside database).
+    - `production` - Default value is set to true, as this is for testing I did change it to false. That way your UI will show a warning that it’s not productive. Could prevent accidents.
+    - `database.dsn` - Set your mysql database connection string here. in my environment it is *mysql:host=localhost;dbname=saml*
+    - `database.username` -  Your database username goes here,
+    - `database.password` - Your database password goes here,
+    - `enable.shib13-idp` - Set this to true.
+    - `enable.saml20-idp` - Set this to true.
+    - `module.enable.exampleauth` - Set this to false.
+    - `module.enable.core` - Set this to true.
+    - `module.enable.saml` - Set this to true.
+    - `module.enable.sqlauth` - Set this to true.
+
+- create a ssl certificate for sso:
+    
+    openssl req -newkey rsa:2048 -new -x509 -days 3652 -nodes -out /var/www/simplesamlphp/cert/saml.crt -keyout /var/www/simplesamlphp/cert/saml.pem
+
+- configure sso server: 
+
+    - inside /var/www/simplesamlphp/metadata find the 
+- Prepare user data:
+
+    `mysql -e "CREATE DATABASE auth DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;`
+
+    `GRANT ALL ON auth.* TO 'authuser'@'localhost' IDENTIFIED BY 'authuser';`
+    
+    `CREATE TABLE auth.users(username VARCHAR(30), password VARBINARY(30), mfa_verified BIT, display_name VARCHAR(50));`
+    
+    `INSERT INTO auth.users(username, password, display_name , mfa_verified) VALUES`
+    `('user1', AES_ENCRYPT('123','secret'), 1, 'navid'),`
+    `('user2', AES_ENCRYPT('123','secret'), 0, 'rose'),`
+    `('user3', AES_ENCRYPT('123','secret'), 1 , 'ismoil');`
+    `FLUSH PRIVILEGES;`
+    
+    >  secret is the value that genereted for `secretsalt`
+
+- Connect SimpleSAMLphp to mysql: 
+      modify /var/simplesamlphp/config/authsources.php and set the example-sql with this data:
+      
+      'example-sql' => [
+        'sqlauth:SQL',
+        'dsn' => 'mysql:host=127.0.0.1;port=3306;dbname=saml',
+        'username' => 'DATABASE_USERNAME',
+        'password' => 'DATABASE_PASSWORD',
+        'query' => 'SELECT username, display_name, mfa_verified  FROM users WHERE username = :username AND AES_DECRYPT(password,"SECRET") = :password',
+      ],
+
+- Modify the metadate/shib13-idp-hosted.php 
+    
+        $metadata['https://samlidp.localhost/simplesaml/saml2/idp/metadata.php'] = [
+            'host' => '__DEFAULT__',
+            'privatekey' => 'saml.pem',
+            'certificate' => 'saml.crt',
+            'auth' => 'example-sql',
+        ];
+
+- Modify the metadate/saml20-idp-hosted.php 
+    
+        $metadata['https://samlidp.localhost/simplesaml/saml2/idp/metadata.php'] = [
+            'host' => '__DEFAULT__',
+            'privatekey' => 'saml.pem',
+            'certificate' => 'saml.crt',
+            'auth' => 'example-sql',
+        ];
+
+# Integrating Nextcloud with SimpleSAMLphp
+
+- Install  SSO & SAML authentication App from app store.
+- Set these variables in settings > SSO and SAML Authentication: 
+    - `Attribute to map UID` - Set to **username**
+    - `Optional display name` - Set to **samlidp** 
+    - `ID_Setting.Identity_Of_IDP_Entity` - Set to **https://samlidp.localhost/simplesaml/saml2/idp/metadata.php**
+    - `IDP_Setting.UR_Target_Of_IDP` - Set to **https://samlidp.localhost/simplesaml/saml2/idp/SSOService.php**
+    - `Attribute_Mapping.Display_Name` - display_name
+    - `IDP_Provider_Data.Public_X509_certificate` - Put cerificate in side the idp public cert (example: saml.cert) without dashed lines
+
+# References
+1- https://ericfossas.medium.com/quick-tut-sso-simplesamlphp-837211f43f0d
+2- https://www.romangeber.com/simplesamlphp_installation/
+3- https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-simplesamlphp-for-saml-authentication-on-ubuntu-18-04
+4- https://support.panopto.com/s/article/Configuring-SSO-with-SimpleSAMLphp
+5- https://simplesamlphp.org/docs/
