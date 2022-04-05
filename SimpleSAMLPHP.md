@@ -8,7 +8,7 @@
 
 - Enable Apache mysql and ssl modules:
     
-    > a2enmod ssl php7.2
+    > a2enmod ssl php7.4
 
 - Generate self signed certificate for secure hosting:
     
@@ -34,7 +34,7 @@
                 SSLCertificateFile /etc/ssl/private/cert.pem
                 SSLCertificateKeyFile /etc/ssl/private/key.pem
 
-                SetEnv SIMPLESAMLPHP_CONFIG_DIR /var/www/simplesamlphp/config
+                SetEnv SIMPLESAMLPHP_CONFIG_DIR /var/www/simplesamlphp-1.19.5/config
 
                 Alias /simplesaml /var/www/simplesamlphp/www
                 <Directory /var/www/simplesamlphp/www/>
@@ -44,9 +44,9 @@
     
     - Create a database inside MySQL server I named it **saml**  
  
-- Configure SimpleSAMLphp by changing below variables in `/var/www/simplesamlphp/config/config.php`: 
+- Configure SimpleSAMLphp by changing below variables in `/var/www/simplesamlphp-19.1.5/config/config.php`: 
 
-    - `auth.adminpassword` - Set a password. If you’d like to encrypt it (recommended) run /var/simplesamlphp/bin/pwgen.php and use it’s output as a value here.
+    - `auth.adminpassword` - Set a password. If you’d like to encrypt it (recommended) run /var/www/simplesamlphp-19.1.5/bin/pwgen.php and use its output as a value here.
     - `secretsalt` - A secret key. Use openssl rand -base64 32 to generate a random value to go here (use this to hash users passwords inside database).
     - `production` - Default value is set to true, as this is for testing I did change it to false. That way your UI will show a warning that it’s not productive. Could prevent accidents.
     - `database.dsn` - Set your mysql database connection string here. in my environment it is *mysql:host=localhost;dbname=saml*
