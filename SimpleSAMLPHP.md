@@ -63,27 +63,25 @@
     
     openssl req -newkey rsa:2048 -new -x509 -days 3652 -nodes -out /var/www/simplesamlphp-1.19.5/cert/saml.crt -keyout /var/www/simplesamlphp-1.19.5/cert/saml.pem
 
-- configure sso server: 
-
-    - inside /var/www/simplesamlphp-1.19.5/metadata find the 
 - Prepare user data:
 
     `mysql -e "CREATE DATABASE auth DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;`
 
-    `GRANT ALL ON auth.* TO 'authuser'@'localhost' IDENTIFIED BY 'authuser';`
-    
+    `CREATE USER 'authuser'@'localhost' IDENTIFIED BY 'authuser';`
+
+    `GRANT ALL PRIVILEGES ON auth.* TO 'authuser'@'localhost';`
+
     `CREATE TABLE auth.users(username VARCHAR(30), password VARBINARY(30), mfa_verified BIT, display_name VARCHAR(50));`
     
-    `INSERT INTO auth.users(username, password, display_name , mfa_verified) VALUES`
+    `INSERT INTO auth.users(username, password, mfa_verified, display_name) VALUES`
     `('user1', AES_ENCRYPT('123','secret'), 1, 'navid'),`
     `('user2', AES_ENCRYPT('123','secret'), 0, 'rose'),`
     `('user3', AES_ENCRYPT('123','secret'), 1 , 'ismoil');`
     `FLUSH PRIVILEGES;`
     
-    >  secret is the value that genereted for `secretsalt`
 
 - Connect SimpleSAMLphp to mysql: 
-      modify /var/simplesamlphp-1.19.5/config/authsources.php and set the example-sql with this data:
+      modify /var/simplesamlphp-1.19.5/config/authsources.php and set the example-sql with this data ("SECRET" is the value that you generated for `secretsalt`):
       
       'example-sql' => [
         'sqlauth:SQL',
@@ -93,7 +91,7 @@
         'query' => 'SELECT username, display_name, mfa_verified  FROM users WHERE username = :username AND AES_DECRYPT(password,"SECRET") = :password',
       ],
 
-- Modify the metadate/shib13-idp-hosted.php 
+- Modify the metadata/shib13-idp-hosted.php 
     
         $metadata['https://samlidp.localhost/simplesaml/saml2/idp/metadata.php'] = [
             'host' => '__DEFAULT__',
