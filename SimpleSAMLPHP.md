@@ -36,8 +36,8 @@
 
                 SetEnv SIMPLESAMLPHP_CONFIG_DIR /var/www/simplesamlphp-1.19.5/config
 
-                Alias /simplesaml /var/www/simplesamlphp/www
-                <Directory /var/www/simplesamlphp/www/>
+                Alias /simplesaml /var/www/simplesamlphp-1.19.5/www
+                <Directory /var/www/simplesamlphp-1.19.5/www/>
                         Require all granted
                 </Directory>
             </VirtualHost>
@@ -61,11 +61,11 @@
 
 - create a ssl certificate for sso:
     
-    openssl req -newkey rsa:2048 -new -x509 -days 3652 -nodes -out /var/www/simplesamlphp/cert/saml.crt -keyout /var/www/simplesamlphp/cert/saml.pem
+    openssl req -newkey rsa:2048 -new -x509 -days 3652 -nodes -out /var/www/simplesamlphp-1.19.5/cert/saml.crt -keyout /var/www/simplesamlphp-1.19.5/cert/saml.pem
 
 - configure sso server: 
 
-    - inside /var/www/simplesamlphp/metadata find the 
+    - inside /var/www/simplesamlphp-1.19.5/metadata find the 
 - Prepare user data:
 
     `mysql -e "CREATE DATABASE auth DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;`
@@ -83,7 +83,7 @@
     >  secret is the value that genereted for `secretsalt`
 
 - Connect SimpleSAMLphp to mysql: 
-      modify /var/simplesamlphp/config/authsources.php and set the example-sql with this data:
+      modify /var/simplesamlphp-1.19.5/config/authsources.php and set the example-sql with this data:
       
       'example-sql' => [
         'sqlauth:SQL',
