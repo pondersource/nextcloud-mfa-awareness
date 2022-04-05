@@ -41,7 +41,7 @@
                         Require all granted
                 </Directory>
             </VirtualHost>
-    
+    - Run `a2ensite samlidp-ssl`
     - Create a database inside MySQL server I named it **saml**  
  
 - Configure SimpleSAMLphp by changing below variables in `/var/www/simplesamlphp-19.1.5/config/config.php`: 
@@ -112,13 +112,13 @@
 # Integrating Nextcloud with SimpleSAMLphp
 
 - Install  SSO & SAML authentication App from app store.
-- Set these variables in settings > SSO and SAML Authentication: 
+- In settings > SSO and SAML Authentication, select 'use built-in SAML authentication' and set these values: 
     - `Attribute to map UID` - Set to **username**
     - `Optional display name` - Set to **samlidp** 
     - `ID_Setting.Identity_Of_IDP_Entity` - Set to **https://samlidp.localhost/simplesaml/saml2/idp/metadata.php**
     - `IDP_Setting.UR_Target_Of_IDP` - Set to **https://samlidp.localhost/simplesaml/saml2/idp/SSOService.php**
     - `Attribute_Mapping.Display_Name` - display_name
-    - `IDP_Provider_Data.Public_X509_certificate` - Put cerificate in side the idp public cert (example: saml.cert) without dashed lines
+    - `IDP_Provider_Data.Public_X509_certificate` - Put certificate inside the idp public cert (example: saml.cert) without dashed lines
 
 # References
 1- https://ericfossas.medium.com/quick-tut-sso-simplesamlphp-837211f43f0d
