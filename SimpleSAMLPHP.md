@@ -109,7 +109,13 @@
             'certificate' => 'saml.crt',
             'auth' => 'example-sql',
         ];
-
+- Modify the metadata/saml20-sp-remote.php and add below configuration for your service provider: 
+        
+        $metadata['http://localhost:8002/index.php/apps/user_saml/saml/metadata'] = [
+            'AssertionConsumerService' => 'http://localhost:8002/index.php/apps/user_saml/saml/acs',
+            'SingleLogoutService' => 'http://localhost:8002/index.php/apps/user_saml/saml/sls',
+        ];
+        
 # Integrating Nextcloud with SimpleSAMLphp
 
 - Install  SSO & SAML authentication App from app store.
