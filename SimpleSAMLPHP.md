@@ -117,8 +117,8 @@
     - `Optional display name` - Set to **samlidp** 
     - `ID_Setting.Identity_Of_IDP_Entity` - Set to **https://samlidp.localhost/simplesaml/saml2/idp/metadata.php**
     - `IDP_Setting.UR_Target_Of_IDP` - Set to **https://samlidp.localhost/simplesaml/saml2/idp/SSOService.php**
-    - `Attribute_Mapping.Display_Name` ('Attribute mapping' > 'Attribute to map displayname to') - display_name
     - `IDP_Provider_Data.Public_X509_certificate` ('Identity Provider Data' > 'Show optional Identity Provider settings...' > 'Public X.509 certificate of the IdP') - Put certificate inside the idp public cert (example: saml.cert) without dashed lines
+    - `Attribute_Mapping.Display_Name` ('Attribute mapping' > 'Show attribute mapping settings...' > 'Attribute to map displayname to') - display_name
 
 # References
 1- https://ericfossas.medium.com/quick-tut-sso-simplesamlphp-837211f43f0d
