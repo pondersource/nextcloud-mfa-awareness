@@ -117,12 +117,16 @@
     - `Optional display name` - Set to **samlidp** 
     - `ID_Setting.Identity_Of_IDP_Entity` - Set to **https://samlidp.localhost/simplesaml/saml2/idp/metadata.php**
     - `IDP_Setting.UR_Target_Of_IDP` - Set to **https://samlidp.localhost/simplesaml/saml2/idp/SSOService.php**
-    - `Attribute_Mapping.Display_Name` - display_name
-    - `IDP_Provider_Data.Public_X509_certificate` - Put certificate inside the idp public cert (example: saml.cert) without dashed lines
+    - `Attribute_Mapping.Display_Name` ('Attribute mapping' > 'Attribute to map displayname to') - display_name
+    - `IDP_Provider_Data.Public_X509_certificate` ('Service Provider Settings' > 'Show Service Provider settings...' > 'Public X.509 certificate of the IdP') - Put certificate inside the idp public cert (example: saml.cert) without dashed lines
 
 # References
 1- https://ericfossas.medium.com/quick-tut-sso-simplesamlphp-837211f43f0d
+
 2- https://www.romangeber.com/simplesamlphp_installation/
+
 3- https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-simplesamlphp-for-saml-authentication-on-ubuntu-18-04
+
 4- https://support.panopto.com/s/article/Configuring-SSO-with-SimpleSAMLphp
+
 5- https://simplesamlphp.org/docs/
