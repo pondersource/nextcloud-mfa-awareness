@@ -64,6 +64,9 @@
     
     > openssl req -newkey rsa:2048 -new -x509 -days 3652 -nodes -out /var/www/simplesamlphp-1.19.5/cert/saml.crt -keyout /var/www/simplesamlphp-1.19.5/cert/saml.pem
 
+- Make .pem file accessible www-data user: 
+    > sudo chown :www-data saml.pem
+    > sudo chmod g+r saml.pem
 - Prepare user data:
 
     `mysql -e "CREATE DATABASE auth DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;`
