@@ -32,11 +32,17 @@ class PageController extends Controller {
 	 */
 	public function index() {
 		$user =[];
+		$result = [];
 		if (!empty($this->session->get('user_saml.samlUserData'))) {
 			$this->userData->setAttributes($this->session->get('user_saml.samlUserData'));
 			$user = $this->userData->getAttributes();
+			$result["isSamlAuthenticated"] = true;
+			$result["displayName"] = $user["display_name"][0];
+			$result["username"] = $user["username"][0];
+			$result["mfaVerified"] = $user["mfa_verified"][0];
+
 		}
-		return new TemplateResponse('mfachecker', 'index', $user );  // templates/index.php
+		return new TemplateResponse('mfachecker', 'index', $result );  // templates/index.php
 	}
 
 }
