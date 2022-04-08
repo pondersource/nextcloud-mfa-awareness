@@ -131,12 +131,6 @@
     - `IDP_Provider_Data.Public_X509_certificate` ('Identity Provider Data' > 'Show optional Identity Provider settings...' > 'Public X.509 certificate of the IdP') - Put certificate inside the idp public cert (example: saml.crt) without dashed lines
     - `Attribute_Mapping.Display_Name` ('Attribute mapping' > 'Show attribute mapping settings...' > 'Attribute to map displayname to') - display_name
 
-# Using the M F A Checker app
-
-* Copy the 'mfachecker' folder from this repo into the /var/www/html/apps/ folder on the nextcloud server
-* In there, run `make build`
-* Enable the app through the GUI (you need to click 'enable untested app' and then click 'enable app' a second time before it's enabled)
-
 # References
 1- https://ericfossas.medium.com/quick-tut-sso-simplesamlphp-837211f43f0d
 
