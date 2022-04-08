@@ -3,7 +3,7 @@
       xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
     <id>mfachecker</id>
     <name>M F A Checker</name>
-    <summary>created for tisting the samel interactions and SDK</summary>
+    <summary>created for testing the saml interactions and SDK</summary>
     <description><![CDATA[no thing special]]></description>
     <version>0.0.1</version>
     <licence>agpl</licence>
