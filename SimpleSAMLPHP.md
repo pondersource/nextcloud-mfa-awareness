@@ -62,7 +62,7 @@
 
 - create a ssl certificate for sso:
     
-    openssl req -newkey rsa:2048 -new -x509 -days 3652 -nodes -out /var/www/simplesamlphp-1.19.5/cert/saml.crt -keyout /var/www/simplesamlphp-1.19.5/cert/saml.pem
+    > openssl req -newkey rsa:2048 -new -x509 -days 3652 -nodes -out /var/www/simplesamlphp-1.19.5/cert/saml.crt -keyout /var/www/simplesamlphp-1.19.5/cert/saml.pem
 
 - Prepare user data:
 
