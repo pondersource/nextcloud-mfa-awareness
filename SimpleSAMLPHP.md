@@ -66,6 +66,7 @@
 
 - Make .pem file accessible www-data user: 
     > sudo chown :www-data saml.pem
+    
     > sudo chmod g+r saml.pem
 - Prepare user data:
 
