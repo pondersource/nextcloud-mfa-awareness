@@ -1,4 +1,4 @@
-version: '2.4'
+version: '3.9'
 services:
   maria-db:
     image: mariadb
@@ -12,17 +12,21 @@ services:
       - MYSQL_USER=nextcloud
       - MYSQL_DATABASE=nextcloud
 
-  apache-php:
+  base-app:
     build: 
-      context: ./apache-php
-      dockerfile: Dockerfile
+      context: apache-php
+    image: apache-php:latest
     deploy:
       mode: replicated
       replicas: 0
   
   nextcloud:
     container_name: nextcloud
+    depends_on: 
+      - base-app
+      - maria-db
     build: 
       context: nextcloud
+    image: "sunet-nextcloud"
     ports:
       - "8080:80"
