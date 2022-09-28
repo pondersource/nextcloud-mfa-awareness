@@ -1,0 +1,28 @@
+version: '2.4'
+services:
+  maria-db:
+    image: mariadb
+    ports:
+      - "3307:3306"
+    volumes:
+      - ~/apps/mariadb:/var/lib/mysql
+    environment: 
+      - MYSQL_ROOT_PASSWORD=r00tp@$$word
+      - MYSQL_PASSWORD=userp@ssword
+      - MYSQL_USER=nextcloud
+      - MYSQL_DATABASE=nextcloud
+
+  apache-php:
+    build: 
+      context: ./apache-php
+      dockerfile: Dockerfile
+    deploy:
+      mode: replicated
+      replicas: 0
+  
+  nextcloud:
+    container_name: nextcloud
+    build: 
+      context: nextcloud
+    ports:
+      - "8080:80"
