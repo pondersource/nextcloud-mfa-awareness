@@ -16,6 +16,9 @@ RUN git clone --depth=1 https://github.com/pondersource/nextcloud-mfa-awareness.
 RUN cd mfachecker && mv mfachecker ../html/apps && rm -rf mfachecker
 ARG CACHEBUST=1
 WORKDIR /var/www/html
+ADD ./init.sh ./init.sh
+RUN chmod u+x init.sh
 ENV PHP_MEMORY_LIMIT="512M"
 RUN cd apps/mfachecker && make
+WORKDIR /var/www/html
 USER root

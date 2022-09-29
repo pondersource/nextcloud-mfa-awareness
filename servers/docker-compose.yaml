@@ -3,7 +3,7 @@ services:
   maria-db:
     image: mariadb
     ports:
-      - "3307:3306"
+      - "3306:3306"
     volumes:
       - ~/apps/mariadb:/var/lib/mysql
     environment: 
@@ -30,3 +30,4 @@ services:
     image: "sunet-nextcloud"
     ports:
       - "8080:80"
+    command: bash -c "./init.sh"
