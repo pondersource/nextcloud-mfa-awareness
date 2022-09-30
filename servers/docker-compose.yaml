@@ -4,8 +4,8 @@ services:
     image: mariadb
     ports:
       - "3306:3306"
-    volumes:
-      - ~/apps/mariadb:/var/lib/mysql
+    # volumes:
+    #   - ~/apps/mariadb:/var/lib/mysql
     environment: 
       - MYSQL_ROOT_PASSWORD=r00tp@$$word
       - MYSQL_PASSWORD=userp@ssword
@@ -22,6 +22,7 @@ services:
   
   nextcloud:
     container_name: nextcloud
+    tty: true
     depends_on: 
       - base-app
       - maria-db
@@ -30,4 +31,3 @@ services:
     image: "sunet-nextcloud"
     ports:
       - "8080:80"
-    command: bash -c "./init.sh"

@@ -19,6 +19,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt install -yq \
   php-xml \
   php-xdebug \
   php-zip \
+  php-gmp \
   vim \
   wget \ 
   unzip
@@ -26,6 +27,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt install -yq \
 COPY gencerts.sh /gencerts.sh
 RUN chmod +x /gencerts.sh
 RUN ./gencerts.sh
-#ADD tls /tls
+# ADD tls /tls
 RUN cp /tls/*.crt /usr/local/share/ca-certificates/
 RUN update-ca-certificates
+CMD ["/usr/sbin/apache2ctl", "-DFOREGROUND"]

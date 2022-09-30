@@ -1,7 +1,8 @@
 #!/bin/bash
+set -e
 DOCKER_BUILDKIT=0 docker compose build 
 docker compose up  
-
+docker exec -it nextcoud ./init.sh
 
 
 # sed -i "8 i\      1 => 'nc1.docker'," /var/www/html/config/config.php
