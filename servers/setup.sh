@@ -1,8 +1,11 @@
 #!/bin/bash
 set -e
 DOCKER_BUILDKIT=0 docker compose build 
-docker compose up  
-docker exec -it nextcoud ./init.sh
+docker compose up -d 
+sleep 15
+docker exec -it nextcloud ./init.sh
+docker exec -it nextcloud chown -R www-data:www-data ../html
+
 
 
 # sed -i "8 i\      1 => 'nc1.docker'," /var/www/html/config/config.php
