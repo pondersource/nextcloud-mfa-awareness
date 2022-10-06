@@ -3,7 +3,8 @@ RUN apt update
 RUN rm -rf /var/www/html
 
 WORKDIR /var/www
-RUN wget https://download.nextcloud.com/server/releases/latest.zip
+# it should be changed to version 19 --> https://download.nextcloud.com/server/releases/latest-19.zip
+RUN wget https://download.nextcloud.com/server/releases/latest.zip 
 RUN unzip latest.zip -d . && rm latest.zip
 RUN cp -rf ./nextcloud ./html
 RUN rm -rf nextcloud
