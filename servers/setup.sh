@@ -3,8 +3,12 @@ set -e
 DOCKER_BUILDKIT=0 docker compose build 
 docker compose up -d 
 sleep 15
-docker exec -it nextcloud ./init.sh
-docker exec -it nextcloud chown -R www-data:www-data ../html
+docker exec -it nextcloud-1 ./init-master.sh
+docker exec -it nextcloud-1 chown -R www-data:www-data ../html
+
+
+docker exec -it nextcloud-2 ./init-slave.sh
+docker exec -it nextcloud-2 chown -R www-data:www-data ../html
 
 
 

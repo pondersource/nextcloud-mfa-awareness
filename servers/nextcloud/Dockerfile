@@ -4,8 +4,8 @@ RUN rm -rf /var/www/html
 
 WORKDIR /var/www
 # it should be changed to version 19 --> https://download.nextcloud.com/server/releases/latest-19.zip
-RUN wget https://download.nextcloud.com/server/releases/latest.zip 
-RUN unzip latest.zip -d . && rm latest.zip
+RUN wget https://download.nextcloud.com/server/releases/latest-19.zip 
+RUN unzip latest-19.zip -d . && rm latest-19.zip
 RUN cp -rf ./nextcloud ./html
 RUN rm -rf nextcloud
 RUN chown -R www-data:www-data ./html
@@ -18,8 +18,10 @@ RUN git clone --depth=1 https://github.com/pondersource/nextcloud-mfa-awareness.
 RUN cd mfachecker && mv mfachecker ../html/apps && rm -rf mfachecker
 ARG CACHEBUST=1
 WORKDIR /var/www/html
-ADD ./init.sh ./init.sh
-RUN chmod u+x init.sh
+ADD ./init-master.sh ./init-master.sh
+ADD ./init-slave.sh ./init-slave.sh
+RUN chmod u+x init-master.sh
+RUN chmod u+x init-slave.sh
 ENV PHP_MEMORY_LIMIT="512M"
 RUN cd apps/mfachecker && make
 WORKDIR /var/www/html
