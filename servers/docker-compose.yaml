@@ -29,6 +29,11 @@ services:
   base-app:
     build: 
       context: apache-php
+      # these line should be comment if you does not use http pondersource proxy
+      args:
+        HTTP_PROXY: http://172.17.0.1:1110
+        HTTPS_PROXY: http://172.17.0.1:1110
+        NO_PROXY: localhost,127.0.0.0/8,::1
     image: apache-php:latest
     deploy:
       mode: replicated
@@ -42,6 +47,11 @@ services:
       - maria-db-1
     build: 
       context: nextcloud
+      # these line should be comment if you does not use http pondersource proxy
+      args:
+        HTTP_PROXY: http://172.17.0.1:1110
+        HTTPS_PROXY: http://172.17.0.1:1110
+        NO_PROXY: localhost,127.0.0.0/8,::1
     image: "sunet-nextcloud"
     ports:
       - "8080:80"
@@ -61,10 +71,6 @@ services:
     image: jlesage/firefox:v1.17.1
     ports:
       - 5800:5800
+    shm_size: '2gb'
     volumes:
       - /tmp/shm:/config:rw
-    entrypoint:
-      - shm-size=2g
-
-
-
