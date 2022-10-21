@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   maria-db-1:
-    container_name: mariadb-1
+    container_name: sunet-mdb1
     image: mariadb
     ports:
       - "3306:3306"
@@ -14,7 +14,7 @@ services:
       - MYSQL_DATABASE=nextcloud
 
   maria-db-2:
-    container_name: mariadb-2
+    container_name: sunet-mdb2
     image: mariadb
     ports:
       - "3307:3306"
@@ -35,7 +35,7 @@ services:
       replicas: 0
   
   nextcloud-1:
-    container_name: nextcloud-1
+    container_name: sunet-nc1
     tty: true
     depends_on: 
       - base-app
@@ -47,16 +47,24 @@ services:
       - "8080:80"
   
   nextcloud-2:
-    container_name: nextcloud-2
+    container_name: sunet-nc2
     tty: true
     depends_on: 
       - base-app
       - maria-db-2
-    build: 
-      context: nextcloud
     image: "sunet-nextcloud"
     ports:
       - "8081:80"
+  
+  firefox-tester:
+    container_name: sunet-tester
+    image: jlesage/firefox:v1.17.1
+    ports:
+      - 5800:5800
+    volumes:
+      - /tmp/shm:/config:rw
+    entrypoint:
+      - shm-size=2g
 
 
 

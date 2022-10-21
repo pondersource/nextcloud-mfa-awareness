@@ -22,7 +22,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt install -yq \
   php-gmp \
   vim \
   wget \ 
-  unzip
+  unzip 
 # Trust all the certificates:
 COPY gencerts.sh /gencerts.sh
 RUN chmod +x /gencerts.sh
