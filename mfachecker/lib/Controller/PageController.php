@@ -13,9 +13,9 @@ class PageController extends Controller {
 	private $userId;
 	private UserData $userData;
 	private ISession $session;
-	public function __construct($AppName, IRequest $request, ISession $session, UserData $userData, $UserId){
+	public function __construct($AppName, IRequest $request, ISession $session, /*UserData $userData,*/ $UserId){
 		parent::__construct($AppName, $request);
-		$this->userData = $userData;
+		/*$this->userData = $userData;*/
 		$this->session = $session;
 		$this->userId = $UserId;
 	}
@@ -35,12 +35,16 @@ class PageController extends Controller {
 		$result = [];
 		if (!empty($this->session->get('user_saml.samlUserData'))) {
 			$this->userData->setAttributes($this->session->get('user_saml.samlUserData'));
-			$user = $this->userData->getAttributes();
+			/*$user = $this->userData->getAttributes();*/
 			$result["isSamlAuthenticated"] = true;
 			$result["displayName"] = $user["display_name"][0];
 			$result["username"] = $user["username"][0];
 			$result["mfaVerified"] = $user["mfa_verified"][0];
 
+		}
+		if (!empty($this->session->get("two_factor_auth_passed"))){
+			$result["local_tfa"] = true;
+			$result["mfaVerified"] = $user["mfa_verified"][0];
 		}
 		return new TemplateResponse('mfachecker', 'index', $result );  // templates/index.php
 	}
