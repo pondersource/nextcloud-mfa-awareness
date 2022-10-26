@@ -1,5 +1,10 @@
 #!/bin/bash
 set -e
+cd apache-php
+docker build . -t apache-php
+cd ../nextcloud
+docker build . -t sunet-nextcloud
+cd ..
 DOCKER_BUILDKIT=0 docker compose build 
 docker compose up -d 
 sleep 15
