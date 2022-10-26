@@ -16,7 +16,7 @@ RUN chown -R www-data:www-data ./html
 # you can also move the CACHEBUST line down to that step.
 RUN git clone --depth=1 https://github.com/pondersource/nextcloud-mfa-awareness.git mfachecker
 ARG CACHEBUST=1
-RUN cd mfachecker && git pull && checkout php-version-8
+RUN cd mfachecker && git pull && git checkout php-version-8
 RUN cd mfachecker && mv mfachecker ../html/apps && rm -rf mfachecker
 WORKDIR /var/www/html
 ADD ./init-master.sh ./init-master.sh
