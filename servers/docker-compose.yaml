@@ -1,4 +1,7 @@
 version: '3.9'
+networks:
+  testnet:
+
 services:
   maria-db-1:
     container_name: sunet-mdb1
