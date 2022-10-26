@@ -5,6 +5,8 @@
 	<div class="row">
 		<h2 style="color: <?php $_["isSamlAuthenticated"] ? p("green") :p( "red")?>">
 			<?php $_["isSamlAuthenticated"] ? p("User is logged in with SAML IDP") :p( "User Is Logged in directly")?>
+			<?php echo '<br>';?>
+			<?php $_["local_tfa"] ? p("user has two factor authentication ") : p("loged in with password")?>
 		</h2>
 	</div>
 	<?php if ($_["isSamlAuthenticated"]){?>
@@ -21,6 +23,7 @@
 			<label for="mfa_status">MFA verified</label>
 		</div>
 	<?php } ?>
+
 </div>
 </div>
 </div>
