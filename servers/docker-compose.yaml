@@ -30,4 +30,4 @@ services:
       context: nextcloud
     image: "sunet-nextcloud"
     ports:
-      - "8080:80"
+      - "80:80"
