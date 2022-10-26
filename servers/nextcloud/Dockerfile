@@ -4,8 +4,8 @@ RUN rm -rf /var/www/html
 
 WORKDIR /var/www
 # it should be changed to version 19 --> https://download.nextcloud.com/server/releases/latest-19.zip
-RUN wget https://download.nextcloud.com/server/releases/latest-19.zip 
-RUN unzip latest-19.zip -d . && rm latest-19.zip
+RUN wget https://download.nextcloud.com/server/releases/latest-24.zip
+RUN unzip latest-24.zip -d . && rm latest-24.zip
 RUN cp -rf ./nextcloud ./html
 RUN rm -rf nextcloud
 RUN chown -R www-data:www-data ./html
