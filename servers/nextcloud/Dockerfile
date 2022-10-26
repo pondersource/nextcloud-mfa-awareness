@@ -9,15 +9,11 @@ RUN unzip latest-24.zip -d . && rm latest-24.zip
 RUN cp -rf ./nextcloud ./html
 RUN rm -rf nextcloud
 RUN chown -R www-data:www-data ./html
-# USER www-data
-#RUN git clone --depth=1 --branch stable24 https://github.com/pondersource/server --recursive --shallow-submodules
-# See https://github.com/moby/moby/issues/1996#issuecomment-185872769 for explanation of cachebust.
-# If the dynamic-shareproviders of nextcloud is stable, but mfachecker not.
-# you can also move the CACHEBUST line down to that step.
-RUN git clone --depth=1 https://github.com/pondersource/nextcloud-mfa-awareness.git mfachecker
+WORKDIR /var/www/html/apps
+RUN git clone --depth=1 --branch=php-version-8 https://github.com/pondersource/nextcloud-mfa-awareness.git
 ARG CACHEBUST=1
-RUN cd mfachecker && git pull && git checkout php-version-8
-RUN cd mfachecker && mv mfachecker ../html/apps && rm -rf mfachecker
+RUN cd nextcloud-mfa-awareness && git pull
+RUN ln -s nextcloud-mfa-awareness/mfachecker
 WORKDIR /var/www/html
 ADD ./init-master.sh ./init-master.sh
 ADD ./init-slave.sh ./init-slave.sh
