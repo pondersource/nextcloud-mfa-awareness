@@ -16,9 +16,9 @@ DOCKER_BUILDKIT=0 docker compose build
 docker compose up -d
 echo "Sleeping 15 seconds"
 sleep 15
-echo "Done sleeping, chmodding /var/www/html on sunet-nc1/2"
-docker exec sunet-nc1 chown -R www-data:www-data ../html
-docker exec sunet-nc2 chown -R www-data:www-data ../html
+echo "Done sleeping, chowning /var/www/html/config on sunet-nc1/2"
+docker exec sunet-nc1 chown -R www-data:www-data ./config
+docker exec sunet-nc2 chown -R www-data:www-data ./config
 
 echo "Setting up $SETUP"
 if [ $SETUP == 'gss' ]; then
