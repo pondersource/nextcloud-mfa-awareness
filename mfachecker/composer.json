@@ -1,6 +1,6 @@
 {
     "name": "pondersource/mfa-checker",
-    "description": "created for tisting the samel interactions and SDK",
+    "description": "created for testing the saml interactions and SDK",
     "type": "project",
     "license": "AGPL",
     "authors": [
@@ -9,7 +9,5 @@
         }
     ],
     "require": {},
-    "require-dev": {
-        "phpunit/phpunit": "^5.4"
-    }
+    "require-dev": {}
 }

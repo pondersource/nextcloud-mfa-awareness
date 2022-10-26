@@ -12,6 +12,8 @@ services:
       - MYSQL_PASSWORD=userp@ssword
       - MYSQL_USER=nextcloud
       - MYSQL_DATABASE=nextcloud
+    networks:
+      - testnet
 
   maria-db-2:
     container_name: sunet-mdb2
@@ -25,6 +27,8 @@ services:
       - MYSQL_PASSWORD=userp@ssword
       - MYSQL_USER=nextcloud
       - MYSQL_DATABASE=nextcloud
+    networks:
+      - testnet
 
   base-app:
     build: 
@@ -38,7 +42,9 @@ services:
     deploy:
       mode: replicated
       replicas: 0
-  
+    networks:
+      - testnet
+
   nextcloud-1:
     container_name: sunet-nc1
     tty: true
@@ -54,7 +60,9 @@ services:
       #   NO_PROXY: localhost,127.0.0.0/8,::1
     image: "sunet-nextcloud"
     ports:
-      - "8080:80"
+      - "80:80"
+    networks:
+      - testnet
   
   nextcloud-2:
     container_name: sunet-nc2
@@ -64,8 +72,10 @@ services:
       - maria-db-2
     image: "sunet-nextcloud"
     ports:
-      - "8081:80"
-  
+      - "80:80"
+    networks:
+      - testnet
+
   firefox-tester:
     container_name: sunet-tester
     image: jlesage/firefox:v1.17.1
@@ -74,3 +84,5 @@ services:
     shm_size: '2gb'
     volumes:
       - /tmp/shm:/config:rw
+    networks:
+      - testnet
