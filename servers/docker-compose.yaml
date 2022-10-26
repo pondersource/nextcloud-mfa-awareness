@@ -63,7 +63,7 @@ services:
       #   NO_PROXY: localhost,127.0.0.0/8,::1
     image: "sunet-nextcloud"
     ports:
-      - "80:80"
+      - "8080:80"
     networks:
       - testnet
   
@@ -75,7 +75,7 @@ services:
       - maria-db-2
     image: "sunet-nextcloud"
     ports:
-      - "80:80"
+      - "8081:80"
     networks:
       - testnet
 
