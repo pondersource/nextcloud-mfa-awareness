@@ -15,6 +15,8 @@ cd ..
 DOCKER_BUILDKIT=0 docker compose build 
 docker compose up -d 
 sleep 15
+docker exec sunet-nc1 chown -R www-data:www-data ../html
+docker exec sunet-nc2 chown -R www-data:www-data ../html
 
 echo "Setting up $SETUP"
 if [ $SETUP == 'gss' ]; then
@@ -31,8 +33,6 @@ else
   exit 1
 fi
 
-docker exec sunet-nc1 chown -R www-data:www-data ../html
-docker exec sunet-nc2 chown -R www-data:www-data ../html
 
 
 
