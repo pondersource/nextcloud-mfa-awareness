@@ -39,8 +39,8 @@ services:
       mode: replicated
       replicas: 0
   
-  nextcloud-1:
-    container_name: sunet-nc1
+  nextcloud1.local:
+    container_name: sunet.nextcloud.first
     tty: true
     depends_on: 
       - base-app
@@ -56,8 +56,8 @@ services:
     ports:
       - "8080:80"
   
-  nextcloud-2:
-    container_name: sunet-nc2
+  nextcloud2.local:
+    container_name: sunet.nextcloud.second
     tty: true
     depends_on: 
       - base-app

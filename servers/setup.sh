@@ -3,12 +3,12 @@ set -e
 DOCKER_BUILDKIT=0 docker compose build 
 docker compose up -d 
 sleep 15
-docker exec -it sunet-nc1 ./init-master.sh
-docker exec -it sunet-nc1 chown -R www-data:www-data ../html
+docker exec -it sunet.nextcloud.first ./init-master.sh
+docker exec -it sunet.nextcloud.first chown -R www-data:www-data ../html
 
 
-docker exec -it sunet-nc2 ./init-slave.sh
-docker exec -it sunet-nc2 chown -R www-data:www-data ../html
+docker exec -it sunet.nextcloud.second ./init-slave.sh
+docker exec -it sunet.nextcloud.second chown -R www-data:www-data ../html
 
 
 
