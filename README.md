@@ -37,3 +37,5 @@ cp /etc/letsencrypt/live/mesh.pondersource.org/fullchain.pem tls/server.cert
 cp /etc/letsencrypt/live/mesh.pondersource.org/privkey.pem tls/server.key
 ```
 Then you can run: `./setup-with-tls.sh webauthn`
+Note that on mesh.pondersource.org you'll have to flush iptables to get this to work, and after that,
+restart the server if you want to go back to using the regular `./setup.sh` script.
