@@ -71,13 +71,13 @@ services:
     networks:
       - testnet
 
-  # firefox-tester:
-  #   container_name: sunet-tester
-  #   image: jlesage/firefox:v1.17.1
-  #   ports:
-  #     - 5800:5800
-  #   shm_size: '2gb'
-  #   volumes:
-  #     - /tmp/shm:/config:rw
-  #   networks:
-  #     - testnet
+  firefox-tester:
+    container_name: sunet-tester
+    image: jlesage/firefox:v1.17.1
+    ports:
+      - 5800:5800
+    shm_size: '2gb'
+    volumes:
+      - /tmp/shm:/config:rw
+    networks:
+      - testnet
