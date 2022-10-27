@@ -12,7 +12,7 @@ WORKDIR /var/www/html/apps
 RUN git clone --depth=1 https://github.com/nextcloud/globalsiteselector.git
 RUN apt install -yq composer
 RUN cd globalsiteselector && composer install
-RUN git clone --depth=1 --branch=php-version-8 https://github.com/pondersource/nextcloud-mfa-awareness.git
+RUN git clone --depth=1 https://github.com/pondersource/nextcloud-mfa-awareness.git
 ARG CACHEBUST=1
 RUN cd nextcloud-mfa-awareness && git pull
 RUN ln -s nextcloud-mfa-awareness/mfachecker
