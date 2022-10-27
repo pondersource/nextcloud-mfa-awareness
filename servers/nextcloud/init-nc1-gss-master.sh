@@ -8,7 +8,8 @@ php console.php app:install user_saml
 php console.php app:install twofactor_webauthn
 php console.php app:enable globalsiteselector
 echo Editing config
-sed -i "13 i\      1 => 'nc1.docker'," /var/www/html/config/config.php
+sed -i "13 i\      2 => 'sunet-nc1'," config/config.php
+sed -i "13 i\      1 => 'mesh.pondersource.org'," config/config.php
 sed -i "3 i\  'allow_local_remote_servers' => true," config/config.php
 sed -i "3 i\   'gss.jwt.key' => '123456'," config/config.php
 sed -i "3 i\   'gss.mode' => 'master'," config/config.php
