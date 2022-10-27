@@ -14,6 +14,7 @@ Usage:
 git clone https://github.com/pondersource/nextcloud-mfa-awareness
 cd nextcloud-mfa-awareness
 cd servers
+cp -r apache-php/tls .
 ./setup.sh totp
 ```
 
@@ -26,6 +27,9 @@ If you run this on mesh.pondersource.org, try https://mesh.pondersource.org:8081
 
 In the case of `./setup.sh gss`, the gss master will be accessable on  https://sunet-nc2/ / https://<host>:8080/
 
-NB: the gss slave is hard-coded to redirect you to http://localhost:8080 when you're not logged in, even if that
+NB 1: the gss slave is hard-coded to redirect you to http://localhost:8080 when you're not logged in, even if that
 may not be the correct URL of your gss master.
 To test the gss setup, make sure to log in to the gss master instead.
+
+NB 2: For the webauthn flow you will need to run this on a DNS-addressable server, and copy the true TLS cert/key files into ./tls
+Then you can run: `./setup-with-tls.sh webauthn`

@@ -12,19 +12,21 @@ docker build . -t apache-php
 cd ../sunet-nextcloud
 docker build . -t sunet-nextcloud
 cd ..
-DOCKER_BUILDKIT=0 docker compose build 
-docker compose up -d
+
+echo "Starting the mariadb container"
+docker run -d --network=testnet --name=sunet-mdb-2 -p 3306:3306 \
+  -e "MARIADB_ROOT_PASSWORD=r00tp@$$word" -e "MARIADB_PASSWORD=userp@ssword" \
+  -e "MARIADB_USER=nextcloud" -e "MARIADB_DATABASE=nextcloud" mariadb
+echo "Starting the Nextcloud container"
+docker run -d --network=testnet --name=sunet-nc2 -p 443:443 -v `pwd`/tls:/tls sunet-nextcloud
+
 echo "Sleeping 20 seconds"
 sleep 20
-echo "Done sleeping, chowning /var/www/html/config on sunet-nc1/2"
-docker exec sunet-nc1 chown -R www-data:www-data ./config
+echo "Done sleeping, chowning /var/www/html/config on sunet-nc2"
 docker exec sunet-nc2 chown -R www-data:www-data ./config
 
 echo "Setting up $1"
-if [ $1 == 'gss' ]; then
-  docker exec -u www-data sunet-nc1 ./init-nc1-gss-master.sh
-  docker exec -u www-data sunet-nc2 ./init-nc2-gss-slave.sh
-elif [ $1 == 'saml' ]; then
+if [ $1 == 'saml' ]; then
   docker exec -u www-data sunet-nc2 ./init-nc2-local-saml.sh
 elif [ $1 == 'totp' ]; then
   docker exec -u www-data sunet-nc2 ./init-nc2-totp.sh
