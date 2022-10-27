@@ -1,17 +1,37 @@
 version: '3.9'
+networks:
+  testnet:
+
 services:
-  maria-db:
+  sunet-mdb-1:
+    container_name: sunet-mdb1
     image: mariadb
     ports:
       - "3306:3306"
+    environment: 
+      - MARIADB_ROOT_PASSWORD=r00tp@$$word
+      - MARIADB_PASSWORD=userp@ssword
+      - MARIADB_USER=nextcloud
+      - MARIADB_DATABASE=nextcloud
+    networks:
+      - testnet
+
+  sunet-mdb-2:
+    container_name: sunet-mdb2
+    image: mariadb
+    ports:
+      - "3307:3306"
     # volumes:
     #   - ~/apps/mariadb:/var/lib/mysql
     environment: 
-      - MYSQL_ROOT_PASSWORD=r00tp@$$word
-      - MYSQL_PASSWORD=userp@ssword
-      - MYSQL_USER=nextcloud
-      - MYSQL_DATABASE=nextcloud
+      - MARIADB_ROOT_PASSWORD=r00tp@$$word
+      - MARIADB_PASSWORD=userp@ssword
+      - MARIADB_USER=nextcloud
+      - MARIADB_DATABASE=nextcloud
+    networks:
+      - testnet
 
+  # only to be built, deploying zero replicas:
   base-app:
     build: 
       context: apache-php
@@ -19,15 +39,45 @@ services:
     deploy:
       mode: replicated
       replicas: 0
-  
-  nextcloud:
-    container_name: nextcloud
+
+  sunet-nc1:
+    container_name: sunet-nc1
     tty: true
     depends_on: 
       - base-app
-      - maria-db
+      - sunet-mdb-1
     build: 
       context: nextcloud
+      # these line should be commented if you does not use the pondersource http proxy
+      # args:
+      #   HTTP_PROXY: http://172.17.0.1:1110
+      #   HTTPS_PROXY: http://172.17.0.1:1110
+      #   NO_PROXY: localhost,127.0.0.0/8,::1
     image: "sunet-nextcloud"
     ports:
       - "8080:80"
+    networks:
+      - testnet
+  
+  sunet-nc2:
+    container_name: sunet-nc2
+    tty: true
+    depends_on: 
+      - base-app
+      - sunet-mdb-2
+    image: "sunet-nextcloud"
+    ports:
+      - "8081:80"
+    networks:
+      - testnet
+
+  firefox-tester:
+    container_name: sunet-tester
+    image: jlesage/firefox:v1.17.1
+    ports:
+      - 5800:5800
+    shm_size: '2gb'
+    volumes:
+      - /tmp/shm:/config:rw
+    networks:
+      - testnet

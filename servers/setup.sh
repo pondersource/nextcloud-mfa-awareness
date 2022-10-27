@@ -1,10 +1,40 @@
 #!/bin/bash
 set -e
+
+if [[ -z "$1" ]]; then
+    echo "No SETUP env var provided (options are 'gss'/'saml'/'totp'/'webauthn')" 1>&2
+    echo "Defaulting to 'gss'" 1>&2
+    export SETUP=gss
+fi
+
+cd apache-php
+docker build . -t apache-php
+cd ../sunet-nextcloud
+docker build . -t sunet-nextcloud
+cd ..
 DOCKER_BUILDKIT=0 docker compose build 
-docker compose up -d 
-sleep 15
-docker exec -it nextcloud ./init.sh
-docker exec -it nextcloud chown -R www-data:www-data ../html
+docker compose up -d
+echo "Sleeping 20 seconds"
+sleep 20
+echo "Done sleeping, chowning /var/www/html/config on sunet-nc1/2"
+docker exec sunet-nc1 chown -R www-data:www-data ./config
+docker exec sunet-nc2 chown -R www-data:www-data ./config
+
+echo "Setting up $1"
+if [ $1 == 'gss' ]; then
+  docker exec -u www-data sunet-nc1 ./init-nc1-gss-master.sh
+  docker exec -u www-data sunet-nc2 ./init-nc2-gss-slave.sh
+elif [ $1 == 'saml' ]; then
+  docker exec -u www-data sunet-nc2 ./init-nc2-local-saml.sh
+elif [ $1 == 'totp' ]; then
+  docker exec -u www-data sunet-nc2 ./init-nc2-totp.sh
+elif [ $1 == 'webauthn' ]; then
+  docker exec -u www-data sunet-nc2 ./init-nc2-webauthn.sh
+else
+  echo "Unsupported setup $1" 1>&2
+  exit 1
+fi
+
 
 
 
