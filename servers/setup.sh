@@ -2,10 +2,10 @@
 set -e
 
 if [[ -z "$1" ]]; then
-    echo "No SETUP env var provided (options are 'gss'/'saml'/'totp'/'webauthn')" 1>&2
-    echo "Defaulting to 'gss'" 1>&2
-    export SETUP=gss
+    echo "Please run './setup.sh gss' or './setup.sh saml' or './setup.sh totp' or './setup.sh webauthn'" 1>&2
+    exit 1
 fi
+echo Setting up docker testnet for $1
 
 cd apache-php
 docker build . -t apache-php

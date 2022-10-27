@@ -14,7 +14,7 @@ Usage:
 git clone https://github.com/pondersource/nextcloud-mfa-awareness
 cd nextcloud-mfa-awareness
 cd servers
-./setup.sh
+./setup.sh totp
 ```
 If you're running this on a Windows host system, you can try `setup.bat` instead.
 
