@@ -31,5 +31,9 @@ NB 1: the gss slave is hard-coded to redirect you to http://localhost:8080 when 
 may not be the correct URL of your gss master.
 To test the gss setup, make sure to log in to the gss master instead.
 
-NB 2: For the webauthn flow you will need to run this on a DNS-addressable server, and copy the true TLS cert/key files into ./tls
+NB 2: For the webauthn flow you will need to run this on a DNS-addressable server, and copy the true TLS cert/key files into ./tls:
+```
+cp /etc/letsencrypt/live/mesh.pondersource.org/fullchain.pem tls/server.cert
+cp /etc/letsencrypt/live/mesh.pondersource.org/privkey.pem tls/server.key
+```
 Then you can run: `./setup-with-tls.sh webauthn`
