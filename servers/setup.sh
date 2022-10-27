@@ -7,6 +7,15 @@ if [[ -z "$1" ]]; then
 fi
 echo Setting up docker testnet for $1
 
+if [ $1 == 'webauthn' ] && [[ ! -f servers/apache-php/tls/server.cert]]; then
+  echo "For the webautn setup, servers/apache-php/tls/server.cert needs to exist!"
+  exit 1
+fi
+if [ $1 == 'webauthn' ] && [[ ! -f servers/apache-php/tls/server.key]]; then
+  echo "For the webautn setup, servers/apache-php/tls/server.key needs to exist!"
+  exit 1
+fi
+
 cd apache-php
 docker build . -t apache-php
 cd ../sunet-nextcloud
