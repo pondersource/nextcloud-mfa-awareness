@@ -7,13 +7,15 @@ if [[ -z "$1" ]]; then
 fi
 echo Setting up docker testnet for $1
 
-if [ $1 == 'webauthn' ] && [[ ! -f servers/apache-php/tls/server.cert]]; then
-  echo "For the webautn setup, servers/apache-php/tls/server.cert needs to exist!"
-  exit 1
-fi
-if [ $1 == 'webauthn' ] && [[ ! -f servers/apache-php/tls/server.key]]; then
-  echo "For the webautn setup, servers/apache-php/tls/server.key needs to exist!"
-  exit 1
+if [ $1 == 'webauthn' ]; then
+  if [[ ! -f servers/apache-php/tls/server.cert ]]; then
+    echo "For the webautn setup, servers/apache-php/tls/server.cert needs to exist!"
+    exit 1
+  fi
+  if [[ ! -f servers/apache-php/tls/server.key ]]; then
+    echo "For the webautn setup, servers/apache-php/tls/server.key needs to exist!"
+    exit 1
+  fi
 fi
 
 cd apache-php
