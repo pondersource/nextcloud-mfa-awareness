@@ -22,12 +22,9 @@ RUN DEBIAN_FRONTEND="noninteractive" apt install -yq \
   php-gmp \
   vim \
   wget \ 
-  unzip 
-# Trust all the certificates:
-COPY gencerts.sh /gencerts.sh
-RUN chmod +x /gencerts.sh
-RUN ./gencerts.sh
-# ADD tls /tls
-RUN cp /tls/*.crt /usr/local/share/ca-certificates/
-RUN update-ca-certificates
+  unzip
+ADD tls /tls
+RUN a2enmod ssl
+COPY site.conf /etc/apache2/sites-enabled/000-default.conf
+
 CMD ["/usr/sbin/apache2ctl", "-DFOREGROUND"]
