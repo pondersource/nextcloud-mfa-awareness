@@ -1,6 +1,11 @@
 #!/bin/bash
 set -e
 
+echo Rebuilding the simple-saml-php image
+cd ./simple-saml-php
+docker build . -t simple-saml-php
+cd ..
+
 echo "Starting the mariadb containers"
 docker run -d --network=testnet --name=sunet-mdb2 \
   -e "MARIADB_ROOT_PASSWORD=r00tp@ssw0rd" -e "MARIADB_PASSWORD=userp@ssword" \
