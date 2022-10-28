@@ -42,7 +42,18 @@ $metadata['https://legacy.example.edu'] = [
 ];
 
 
-$metadata['http://localhost:8080/index.php/apps/user_saml/saml/metadata'] = [
-    'AssertionConsumerService' => 'http://localhost:8080/index.php/apps/user_saml/saml/acs',
-    'SingleLogoutService' => 'http://localhost:8080/index.php/apps/user_saml/saml/sls',
+$hosts = [
+    'localhost:8080',
+    'localhost:8081',
+    'mesh.pondersource.org:8080',
+    'mesh.pondersource.org:8081',
+    'sunet-nc1',
+    'sunet-nc2'
 ];
+
+foreach ($hosts as $host) {
+    $metadata["http://$host/index.php/apps/user_saml/saml/metadata"] = [
+        'AssertionConsumerService' => "http://$host/index.php/apps/user_saml/saml/acs",
+        'SingleLogoutService' => "http://$host/index.php/apps/user_saml/saml/sls",
+    ];
+}

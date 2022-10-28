@@ -52,7 +52,7 @@ $metadata['__DYNAMIC:1__'] = [
 ];
 
 
-$metadata['http://localhost:8082/simplesaml/saml2/idp/metadata.php'] = [
+$metadata['http://sunet-ssp/simplesaml/saml2/idp/metadata.php'] = [
     'host' => '__DEFAULT__',
     'privatekey' => 'saml.pem',
     'certificate' => 'saml.crt',
