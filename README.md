@@ -28,11 +28,11 @@ If you run this on mesh.pondersource.org, try http://mesh.pondersource.org:8081 
 Login may not work on http://mesh.pondersource.org:8081 (keeps showing the login page), when this happens, try
  http://mesh.pondersource.org:5800 and then visit http://sunet-nc2 using the browser-inside-a-browser.
 
-In the case of `./setup.sh gss`, the gss master will be accessable on  https://sunet-nc2/ / https://<host>:8080/
+In the case of `./setup.sh gss`, the gss leader will be accessable on  https://sunet-nc2/ / https://<host>:8080/
 
-NB 1: the gss slave is hard-coded to redirect you to http://localhost:8080 when you're not logged in, even if that
-may not be the correct URL of your gss master.
-To test the gss setup, make sure to log in to the gss master instead.
+NB 1: the gss follower is hard-coded to redirect you to http://localhost:8080 when you're not logged in, even if that
+may not be the correct URL of your gss leader.
+To test the gss setup, make sure to log in to the gss leader instead.
 
 NB 2: For the webauthn flow you will need to run this on a DNS-addressable server, and copy the true TLS cert/key files into ./tls:
 ```
