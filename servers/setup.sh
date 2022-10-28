@@ -11,7 +11,7 @@ cd apache-php
 docker build . -t apache-php
 cd ../sunet-nextcloud
 docker build . -t sunet-nextcloud
-cd ../simple-sample-php
+cd ../simple-saml-php
 docker build . -t simple-saml-php
 cd ..
 DOCKER_BUILDKIT=0 docker compose build
