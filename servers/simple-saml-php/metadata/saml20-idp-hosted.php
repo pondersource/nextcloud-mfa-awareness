@@ -22,7 +22,7 @@ $metadata['__DYNAMIC:1__'] = [
      * Authentication source to use. Must be one that is configured in
      * 'config/authsources.php'.
      */
-    'auth' => 'example-userpass',
+    'auth' => 'example-sql',
 
     /* Uncomment the following to use the uri NameFormat on attributes. */
     /*
