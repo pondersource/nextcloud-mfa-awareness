@@ -61,7 +61,7 @@ services:
         HTTP_PROXY: http://172.17.0.1:1110
         HTTPS_PROXY: http://172.17.0.1:1110
         NO_PROXY: localhost,127.0.0.0/8,::1
-    image: apache-php:latest
+    image: ponder-ssp:latest
     ports:
       - 8082:80
 
