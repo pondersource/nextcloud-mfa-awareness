@@ -65,7 +65,7 @@ $config = [
     
     'example-sql' => [
         'sqlauth:SQL',
-        'dsn' => 'pgsql:host=ssp-mdb;port=3306;dbname=saml',
+        'dsn' => 'mysql:host=ssp-mdb;port=3306;dbname=saml',
         'username' => 'sspuser',
         'password' => '$$puser',
         'query' => 'SELECT username, display_name, mfa_verified  FROM users WHERE username = :username AND AES_DECRYPT(password,"SECRET") = :password',
