@@ -23,7 +23,7 @@ docker run -d --network=testnet --name=sunet-nc2 -p 443:443 -v `pwd`/tls:/tls su
 x=$(docker exec -it sunet-mdb2 ss -tulpn | grep 3306 | wc -l)
 until [ $x -ne 0 ]
 do
-  echo Waiting for sunet-mdb2 to start, this usually takes about 8 seconds ... $x
+  echo Waiting for sunet-mdb2 to start, this usually takes about 10 seconds ... $x
   sleep 1
   x=$(docker exec -it sunet-mdb2 ss -tulpn | grep 3306 | wc -l)
 done
