@@ -3,7 +3,7 @@ networks:
   testnet:
 
 services:
-  sunet-mdb-1:
+  sunet-mdb1:
     container_name: sunet-mdb1
     image: mariadb
     ports:
@@ -16,7 +16,7 @@ services:
     networks:
       - testnet
 
-  sunet-mdb-2:
+  sunet-mdb2:
     container_name: sunet-mdb2
     image: mariadb
     ports:
@@ -48,11 +48,6 @@ services:
       - sunet-mdb-1
     build: 
       context: sunet-nextcloud
-      # these line should be commented if you does not use the pondersource http proxy
-      # args:
-      #   HTTP_PROXY: http://172.17.0.1:1110
-      #   HTTPS_PROXY: http://172.17.0.1:1110
-      #   NO_PROXY: localhost,127.0.0.0/8,::1
     image: "sunet-nextcloud"
     ports:
       - "8080:80"
