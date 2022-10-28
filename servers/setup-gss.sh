@@ -17,7 +17,7 @@ function waitForMysql {
   x=$(docker exec -it $1 ss -tulpn | grep 3306 | wc -l)
   until [ $x -ne 0 ]
   do
-    echo Waiting for $1 to start, this can take up to a minute ... $x
+    echo Waiting for $1 to start, this usually takes about 8 seconds ... $x
     sleep 1
     x=$(docker exec -it $1 ss -tulpn | grep 3306 | wc -l)
   done
