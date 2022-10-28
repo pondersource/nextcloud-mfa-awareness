@@ -39,7 +39,7 @@ docker exec -u www-data sunet-nc2 ./init-nc2-local-saml.sh
 docker exec -it sunet-mdb2 mysql -u nextcloud -puserp@ssword -h sunet-mdb2 nextcloud -e "INSERT INTO oc_appconfig (appid, configkey, configvalue) VALUES \
 (\"user_saml\", \"type\", \"saml\")"
 docker exec -it sunet-mdb2 mysql -u nextcloud -puserp@ssword -h sunet-mdb2 nextcloud -e "INSERT INTO oc_user_saml_configurations (id, name, configuration) VALUES \
-(2, \"samlidp\", \"{\
+(1, \"samlidp\", \"{\
 \\\"general-uid_mapping\\\":\\\"username\\\",\
 \\\"general-idp0_display_name\\\":\\\"samlidp\\\",\
 \\\"idp-entityId\\\":\\\"http:\/\/sunet-ssp\/simplesaml\/saml2\/idp\/metadata.php\\\",\
