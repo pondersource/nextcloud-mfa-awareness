@@ -10,9 +10,9 @@ echo Editing config
 sed -i "8 i\    2 => 'sunet-nc1'," config/config.php
 sed -i "8 i\    1 => 'mesh.pondersource.org'," config/config.php
 sed -i "3 i\  'allow_local_remote_servers' => true," config/config.php
+sed -i "3 i\  'gss.discovery.saml.slave.mapping' => 'location'
 sed -i "3 i\  'gss.jwt.key' => '123456'," config/config.php
-sed -i "3 i\  'gss.mode' => 'master'," config/config.php
 sed -i "3 i\  'gss.master.admin' => ['admin']," config/config.php
-sed -i "3 i\  'gss.user.discovery.module' => '\OCA\GlobalSiteSelector\UserDiscoveryModules\UserDiscoverySAML',"  config/config.php
 sed -i "3 i\  'gss.master.csp-allow' => ['*.localhost:8080', '*.localhost:8081'],"  config/config.php
-
+sed -i "3 i\  'gss.mode' => 'master'," config/config.php
+sed -i "3 i\  'gss.user.discovery.module' => '\OCA\GlobalSiteSelector\UserDiscoveryModules\UserDiscoverySAML',"  config/config.php
