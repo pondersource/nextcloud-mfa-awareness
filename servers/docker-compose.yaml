@@ -6,8 +6,6 @@ services:
   sunet-mdb1:
     container_name: sunet-mdb1
     image: mariadb
-    ports:
-      - "3306:3306"
     environment: 
       - MARIADB_ROOT_PASSWORD=r00tp@$$word
       - MARIADB_PASSWORD=userp@ssword
@@ -19,8 +17,6 @@ services:
   sunet-mdb2:
     container_name: sunet-mdb2
     image: mariadb
-    ports:
-      - "3307:3306"
     # volumes:
     #   - ~/apps/mariadb:/var/lib/mysql
     environment: 

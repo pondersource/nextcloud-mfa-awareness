@@ -34,8 +34,8 @@ do
   x=$(docker exec -it sunet-mdb2 ss -tulpn | grep 3306 | wc -l)
 done
 echo sunet-mdb2 port is open
-# echo waiting another 15 seconds...
-# sleep 15
+echo waiting another 15 seconds...
+sleep 15
 
 echo "Done waiting, chowning /var/www/html/config on sunet-nc1/2"
 docker exec sunet-nc1 chown -R www-data:www-data ./config
