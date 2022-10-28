@@ -25,7 +25,7 @@ docker run -d --name=firefox -p 5800:5800 -v /tmp/shm:/config:rw --network=testn
 x=$(docker exec -it sunet-mdb2 ss -tulpn | grep 3306 | wc -l)
 until [ $x -ne 0 ]
 do
-  echo Waiting for sunet-mdb2 to start, this usually takes about 8 seconds ... $x
+  echo Waiting for sunet-mdb2 to start, this can take up to a minute ... $x
   sleep 1
   x=$(docker exec -it sunet-mdb2 ss -tulpn | grep 3306 | wc -l)
 done
