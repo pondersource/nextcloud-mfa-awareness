@@ -64,3 +64,13 @@ KKNPSvliaChAFHL2gmAEfp2TOzwLF6icRMjuBBCiH/5OiwwViF5mwgpJ938HeC1G\
 IIKsVDQgUIDr+KPqQbC4OEsGUCW8bybibdwNdtYgNpDYwysgYHgWDsRdmDmkh5Ly\
 Q8CODPPBMk+mAN+xC5hX\\\",\
 \\\"saml-attribute-mapping-displayName_mapping\\\":\\\"display_name\\\"}\")"
+docker exec -it sunet-mdb2 mysql -u sspuser -psspus3r -h sunet-ssp-mdb saml -e "CREATE TABLE users (\
+username varchar(255), \
+password varbinary(255), \
+display_name varchar(255), \
+mfa_verified boolean \
+)"
+docker exec -it sunet-mdb2 mysql -u sspuser -psspus3r -h sunet-ssp-mdb saml -e "INSERT INTO users \
+(username, password, display_name, mfa_verified) VALUES \
+(\"usr1\", AES_ENCRYPT(\"pwd1\", \"SECRET\"), \"user 1\", true), \
+(\"usr2\", AES_ENCRYPT(\"pwd2\", \"SECRET\"), \"user 2\", false)"
