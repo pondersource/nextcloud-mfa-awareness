@@ -14,7 +14,7 @@ docker build . -t sunet-nextcloud
 cd ..
 
 echo "Starting the mariadb container"
-docker run -d --network=testnet --name=sunet-mdb-2 -p 3306:3306 \
+docker run -d --network=testnet --name=sunet-mdb2 -p 3306:3306 \
   -e "MARIADB_ROOT_PASSWORD=r00tp@$$word" -e "MARIADB_PASSWORD=userp@ssword" \
   -e "MARIADB_USER=nextcloud" -e "MARIADB_DATABASE=nextcloud" mariadb
 echo "Starting the Nextcloud container"
