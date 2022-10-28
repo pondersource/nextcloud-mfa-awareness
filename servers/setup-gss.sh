@@ -31,15 +31,15 @@ echo "Done waiting, chowning /var/www/html/config on sunet-nc1/2"
 docker exec sunet-nc1 chown -R www-data:www-data ./config
 docker exec sunet-nc2 chown -R www-data:www-data ./config
 
-echo "Setting up leader"
+echo "Setting up gss leader (sunet-nc1)"
 docker exec -u www-data sunet-nc1 ./init-nc1-gss-leader.sh
-echo "Setting up follower"
+echo "Setting up gss follower (sunet-nc2)"
 docker exec -u www-data sunet-nc2 ./init-nc2-gss-follower.sh
 
 echo "Configuring user_saml on sunet-nc1"
-docker exec -it sunet-mdb1 mysql -u nextcloud -puserp@ssword -h sunet-mdb2 nextcloud -e "INSERT INTO oc_appconfig (appid, configkey, configvalue) VALUES \
+docker exec -it sunet-mdb1 mysql -u nextcloud -puserp@ssword -h sunet-mdb1 nextcloud -e "INSERT INTO oc_appconfig (appid, configkey, configvalue) VALUES \
 (\"user_saml\", \"type\", \"saml\")"
-docker exec -it sunet-mdb1 mysql -u nextcloud -puserp@ssword -h sunet-mdb2 nextcloud -e "INSERT INTO oc_user_saml_configurations (id, name, configuration) VALUES \
+docker exec -it sunet-mdb1 mysql -u nextcloud -puserp@ssword -h sunet-mdb1 nextcloud -e "INSERT INTO oc_user_saml_configurations (id, name, configuration) VALUES \
 (1, \"samlidp\", \"{\
 \\\"general-uid_mapping\\\":\\\"username\\\",\
 \\\"general-idp0_display_name\\\":\\\"samlidp\\\",\
@@ -65,7 +65,7 @@ KKNPSvliaChAFHL2gmAEfp2TOzwLF6icRMjuBBCiH/5OiwwViF5mwgpJ938HeC1G\
 IIKsVDQgUIDr+KPqQbC4OEsGUCW8bybibdwNdtYgNpDYwysgYHgWDsRdmDmkh5Ly\
 Q8CODPPBMk+mAN+xC5hX\\\",\
 \\\"saml-attribute-mapping-displayName_mapping\\\":\\\"display_name\\\"}\")"
-docker exec -it sunet-mdb1 mysql -u sspuser -psspus3r -h sunet- saml -e "CREATE TABLE users (\
+docker exec -it sunet-mdb1 mysql -u sspuser -psspus3r -h sunet-ssp-mdb saml -e "CREATE TABLE users (\
 username varchar(255), \
 password varbinary(255), \
 display_name varchar(255), \
