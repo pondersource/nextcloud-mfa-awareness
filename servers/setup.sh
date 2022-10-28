@@ -11,8 +11,10 @@ cd apache-php
 docker build . -t apache-php
 cd ../sunet-nextcloud
 docker build . -t sunet-nextcloud
+cd ../simple-sample-php
+docker build . -t simple-saml-php
 cd ..
-DOCKER_BUILDKIT=0 docker compose build 
+DOCKER_BUILDKIT=0 docker compose build
 docker compose up -d
 echo "Sleeping 20 seconds"
 sleep 20

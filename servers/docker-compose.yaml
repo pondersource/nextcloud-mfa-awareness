@@ -66,6 +66,16 @@ services:
     networks:
       - testnet
 
+  sunet-ssp:
+    container: sunet-ssp
+    build:
+      context: simple-saml-php
+    image: "simple-saml-php"
+    networks:
+      - testnet
+    ports:
+      - "8082:80"
+
   firefox-tester:
     container_name: sunet-tester
     image: jlesage/firefox:v1.17.1
