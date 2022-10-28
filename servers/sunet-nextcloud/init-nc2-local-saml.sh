@@ -1,6 +1,8 @@
 #!/bin/bash
+set -e
+
 echo Installing ownCloud
-php console.php maintenance:install --admin-user "Admin" --admin-pass "!QAZ1qaz" --database "mysql" --database-name "nextcloud" --database-user "nextcloud" --database-pass "userp@ssword" --database-host "sunet-mdb-2"
+php console.php maintenance:install --admin-user "Admin" --admin-pass "!QAZ1qaz" --database "mysql" --database-name "nextcloud" --database-user "nextcloud" --database-pass "userp@ssword" --database-host "sunet-mdb2"
 echo Enabling apps
 php console.php app:disable firstrunwizard
 php console.php app:install user_saml
