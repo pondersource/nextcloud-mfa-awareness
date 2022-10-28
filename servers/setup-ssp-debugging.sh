@@ -19,6 +19,9 @@ docker run -d --network=testnet --name=sunet-nc2  sunet-nextcloud
 echo "Starting the SSP container"
 docker run -d --network=testnet --name=sunet-ssp simple-saml-php
 
+echo "Adding Firefox tester"
+docker run -d --name=firefox -p 5800:5800 -v /tmp/shm:/config:rw --network=testnet --shm-size 2g jlesage/firefox:v1.17.1
+
 x=$(docker exec -it sunet-mdb2 ss -tulpn | grep 3306 | wc -l)
 until [ $x -ne 0 ]
 do
@@ -33,11 +36,8 @@ docker exec sunet-nc2 chown -R www-data:www-data ./config
 
 echo "Configuring user_saml on sunet-nc2"
 docker exec -u www-data sunet-nc2 ./init-nc2-local-saml.sh
-
-echo "Adding Firefox tester"
-docker run -d --name=firefox -p 5800:5800 -v /tmp/shm:/config:rw --network=testnet --shm-size 2g jlesage/firefox:v1.17.1
-
-echo Configuring user_saml for sunet-nc2
+docker exec -it sunet-mdb2 mysql -u nextcloud -puserp@ssword -h sunet-mdb2 nextcloud -e "INSERT INTO oc_appconfig (appid, configkey, configvalue) VALUES \
+(\"user_saml\", \"type\", \"saml\")"
 docker exec -it sunet-mdb2 mysql -u nextcloud -puserp@ssword -h sunet-mdb2 nextcloud -e "INSERT INTO oc_user_saml_configurations (id, name, configuration) VALUES \
 (2, \"samlidp\", \"{\
 \\\"general-uid_mapping\\\":\\\"username\\\",\
@@ -62,4 +62,5 @@ hVK4WhAam/lZX9sNMSXb9QwSqjHiYT+DA5loaGJJU7DMHeqvifL1kXz776Lv+70U\
 h9qjuXIz74Ye4zQA+ALTb3M65kMaRJ9juLEdUVsnLUPvLhKBG8MHXX6sFv2mE6Cj\
 KKNPSvliaChAFHL2gmAEfp2TOzwLF6icRMjuBBCiH/5OiwwViF5mwgpJ938HeC1G\
 IIKsVDQgUIDr+KPqQbC4OEsGUCW8bybibdwNdtYgNpDYwysgYHgWDsRdmDmkh5Ly\
-Q8CODPPBMk+mAN+xC5hX\\\"}\")"
+Q8CODPPBMk+mAN+xC5hX\\\",\
+\\\"saml-attribute-mapping-displayName_mapping\\\":\\\"display_name\\\"}\")"
