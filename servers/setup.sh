@@ -5,6 +5,18 @@ if [[ -z "$1" ]]; then
     echo "Please run './setup.sh gss' or './setup.sh saml' or './setup.sh totp' or './setup.sh webauthn'" 1>&2
     exit 1
 fi
+
+
+if [ $1 == 'saml' ]; then
+  echo "Please use ./setup-saml.sh instead"
+  exit 1
+fi
+
+if [ $1 == 'webauthn' ]; then
+  echo "Please use ./setup-with-tls.sh as described in 'NB2' footnote of the readme"
+  exit 1
+fi
+
 echo Setting up docker testnet for $1
 
 cd apache-php
@@ -43,12 +55,8 @@ echo "Setting up $1"
 if [ $1 == 'gss' ]; then
   docker exec -u www-data sunet-nc1 ./init-nc1-gss-master.sh
   docker exec -u www-data sunet-nc2 ./init-nc2-gss-slave.sh
-elif [ $1 == 'saml' ]; then
-  docker exec -u www-data sunet-nc2 ./init-nc2-local-saml.sh
 elif [ $1 == 'totp' ]; then
   docker exec -u www-data sunet-nc2 ./init-nc2-totp.sh
-elif [ $1 == 'webauthn' ]; then
-  docker exec -u www-data sunet-nc2 ./init-nc2-webauthn.sh
 else
   echo "Unsupported setup $1" 1>&2
   exit 1
