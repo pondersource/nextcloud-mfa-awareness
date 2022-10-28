@@ -35,6 +35,8 @@ services:
       - MYSQL_PASSWORD=$$puser
       - MYSQL_USER=sspuser
       - MYSQL_DATABASE=saml
+    networks:
+      - testnet
 
   # only to be built, deploying zero replicas:
   base-app:
