@@ -69,6 +69,7 @@ docker exec -it sunet-mdb1 mysql -u sspuser -psspus3r -h sunet-ssp-mdb saml -e "
 username varchar(255), \
 password varbinary(255), \
 display_name varchar(255), \
+location varchar(255), \
 mfa_verified boolean \
 )"
 docker exec -it sunet-mdb1 mysql -u sspuser -psspus3r -h sunet-ssp-mdb saml -e "INSERT INTO users \
