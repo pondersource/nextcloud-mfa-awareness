@@ -404,7 +404,7 @@ $config = [
      * Ensure that you have the required PDO database driver installed
      * for your connection string.
      */
-    'database.dsn' => 'mysql:host=ssp-mdb;dbname=saml',
+    'database.dsn' => 'mysql:host=sunet-ssp-mdb;dbname=saml',
 
     /*
      * SQL database credentials
