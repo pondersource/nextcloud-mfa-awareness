@@ -2,7 +2,7 @@
 set -e
 
 if [[ -z "$1" ]]; then
-    echo "Please run './setup.sh gss' or './setup.sh saml' or './setup.sh totp' or './setup.sh webauthn'" 1>&2
+    echo "Please run './setup.sh totp' or './setup.sh webauthn'" 1>&2
     exit 1
 fi
 echo Setting up docker testnet for $1
@@ -20,15 +20,19 @@ docker run -d --network=testnet --name=sunet-mdb2 -p 3306:3306 \
 echo "Starting the Nextcloud container"
 docker run -d --network=testnet --name=sunet-nc2 -p 443:443 -v `pwd`/tls:/tls sunet-nextcloud
 
-echo "Sleeping 20 seconds"
-sleep 20
-echo "Done sleeping, chowning /var/www/html/config on sunet-nc2"
+x=$(docker exec -it sunet-mdb2 ss -tulpn | grep 3306 | wc -l)
+until [ $x -ne 0 ]
+do
+  echo Waiting for sunet-mdb2 to start, this usually takes about 10 seconds ... $x
+  sleep 1
+  x=$(docker exec -it sunet-mdb2 ss -tulpn | grep 3306 | wc -l)
+done
+echo sunet-mdb2 port is open
+
 docker exec sunet-nc2 chown -R www-data:www-data ./config
 
 echo "Setting up $1"
-if [ $1 == 'saml' ]; then
-  docker exec -u www-data sunet-nc2 ./init-nc2-local-saml.sh
-elif [ $1 == 'totp' ]; then
+if [ $1 == 'totp' ]; then
   docker exec -u www-data sunet-nc2 ./init-nc2-totp.sh
 elif [ $1 == 'webauthn' ]; then
   docker exec -u www-data sunet-nc2 ./init-nc2-webauthn.sh

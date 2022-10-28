@@ -7,11 +7,11 @@ cd ..
 DOCKER_BUILDKIT=0 docker compose build 
 docker compose up -d 
 timeout /t 20 /nobreak
-docker exec -it sunet-nc1 ./init-nc1-gss-master.sh
+docker exec -it sunet-nc1 ./init-nc1-gss-leader.sh
 docker exec -it sunet-nc1 chown -R www-data:www-data ../html
 
 
-docker exec -it sunet-nc2 ./init-nc2-gss-master.sh
+docker exec -it sunet-nc2 ./init-nc2-gss-follower.sh
 docker exec -it sunet-nc2 chown -R www-data:www-data ../html
 
 
