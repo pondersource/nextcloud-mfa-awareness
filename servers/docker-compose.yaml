@@ -27,6 +27,15 @@ services:
     networks:
       - testnet
 
+  sunet-ssp-mdb:
+    container_name: sunet-ssp-mdb
+    image: mariadb
+    environment: 
+      - MYSQL_ROOT_PASSWORD=r00tp@$$word
+      - MYSQL_PASSWORD=$$puser
+      - MYSQL_USER=sspuser
+      - MYSQL_DATABASE=saml
+
   # only to be built, deploying zero replicas:
   base-app:
     build: 
