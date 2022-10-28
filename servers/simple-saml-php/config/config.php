@@ -410,7 +410,7 @@ $config = [
      * SQL database credentials
      */
     'database.username' => 'sspuser',
-    'database.password' => '$$puser',
+    'database.password' => 'sspus3r',
     'database.options' => [],
 
     /*
