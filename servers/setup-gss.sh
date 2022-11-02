@@ -43,8 +43,8 @@ docker exec -it sunet-mdb1 mysql -u nextcloud -puserp@ssword -h sunet-mdb1 nextc
 (1, \"samlidp\", \"{\
 \\\"general-uid_mapping\\\":\\\"username\\\",\
 \\\"general-idp0_display_name\\\":\\\"samlidp\\\",\
-\\\"idp-entityId\\\":\\\"http:\/\/sunet-ssp\/simplesaml\/saml2\/idp\/metadata.php\\\",\
-\\\"idp-singleSignOnService.url\\\":\\\"http:\/\/sunet-ssp\/simplesaml\/saml2\/idp\/SSOService.php\\\",\
+\\\"idp-entityId\\\":\\\"http:\/\/localhost:8082\/simplesaml\/saml2\/idp\/metadata.php\\\",\
+\\\"idp-singleSignOnService.url\\\":\\\"http:\/\/localhost:8082\/simplesaml\/saml2\/idp\/SSOService.php\\\",\
 \\\"idp-x509cert\\\":\\\"MIIDazCCAlOgAwIBAgIUTQg4Wn5st4nmtOT08sQhGRcUbl8wDQYJKoZIhvcNAQEL\
 BQAwRTELMAkGA1UEBhMCQVUxEzARBgNVBAgMClNvbWUtU3RhdGUxITAfBgNVBAoM\
 GEludGVybmV0IFdpZGdpdHMgUHR5IEx0ZDAeFw0yMjEwMjcxMzIxNTlaFw0zMjEw\
