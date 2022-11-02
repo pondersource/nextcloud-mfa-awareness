@@ -37,9 +37,9 @@ class PageController extends Controller {
 			error_log("why are you null");
 			error_log(var_export($this->session->get('gss.samlUserData'), true));
 			$result["isGssAuthenticated"] = true;
-			$result["displayName"] = $attr["display_name"][0];
-			$result["username"] = $attr["username"][0];
-			$result["mfaVerified"] = $attr["mfa_verified"][0];
+			$result["displayName"] = $attr["displayName"];
+			$result["username"] = $attr["username"];
+			$result["mfaVerified"] = $attr["mfaVerified"];
 		}
 		if (!empty($this->session->get('user_saml.samlUserData'))) {
 			$attr = $this->session->get('user_saml.samlUserData');
