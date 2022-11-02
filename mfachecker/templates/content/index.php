@@ -6,10 +6,10 @@
 		<h2 style="color: <?php $_["isSamlAuthenticated"] ? p("green") :p( "red")?>">
 			<?php $_["isSamlAuthenticated"] ? p("User is logged in with SAML IDP") : ($_["isGssAuthenticated"] ? p( "User Is Logged in via GlobalSiteSelector") : p( "User Is Logged in directly"))?>
 			<?php echo '<br>';?>
-			<?php $_["local_tfa"] ? p("user has two factor authentication ") : p("loged in with password")?>
+			<?php $_["isGssAuthenticated"] ? "" : ($_["local_tfa"] ? p("user has two factor authentication ") : p("logged in with password"))?>
 		</h2>
 	</div>
-	<?php if ($_["isSamlAuthenticated"]){?>
+	<?php if ($_["isSamlAuthenticated"] || $_["isGssAuthenticated"]){?>
 	<div class="row">
 		<label for="username">Username:</label>
 		<input readonly id ="username" type="text" value="<?php p($_["username"])?>">
