@@ -55,3 +55,7 @@ cp /etc/letsencrypt/live/mesh.pondersource.org/privkey.pem tls/server.key
 Then you can run: `./setup-with-tls.sh webauthn`
 Note that on mesh.pondersource.org you'll have to flush iptables to get this to work, and after that,
 restart the server if you want to go back to using the regular `./setup.sh` script.
+
+NB 3: If you run two setup scripts in a row, the docker containers from the previous run will still be around.
+If you want to kill and remove *all* Docker containers on the host (including possibly unrelated ones that were started by
+other processes or users), run `./clean.sh`). Use at your own risk. :)
