@@ -40,6 +40,8 @@ class PageController extends Controller {
 			$result["displayName"] = $attr["displayName"];
 			$result["username"] = $attr["username"];
 			$result["mfaVerified"] = $attr["mfaVerified"];
+			$result["local_tfa"] = false;
+			$result["isSamlAuthenticated"] = false;
 		}
 		if (!empty($this->session->get('user_saml.samlUserData'))) {
 			$attr = $this->session->get('user_saml.samlUserData');
