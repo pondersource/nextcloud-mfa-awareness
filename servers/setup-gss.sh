@@ -4,12 +4,20 @@ set -e
 echo Setting up full docker testnet for gss using docker-compose.
 if [ $1 = "" ]; then
 	SSPHOST=localhost:8082
+  LEADER=localhost:8080
+  FOLLOWER=localhost:8081
 elif [ $1 = "testnet" ]; then
 	SSPHOST=sunet-ssp
+  LEADER=sunet-nc1
+  FOLLOWER=sunet-nc2
 else
 	SSPHOST=$1:8082
+  LEADER=$1:8080
+  FOLLOWER=$1:8081
 fi
 echo Using http://$SSPHOST as the ssp host
+echo Using http://$LEADER as the gss leader
+echo Using http://$FOLLOWER as the gss follower
 
 cd apache-php
 docker build . -t apache-php
@@ -42,7 +50,7 @@ docker exec sunet-nc2 chown -R www-data:www-data ./config
 echo "Setting up gss leader (sunet-nc1)"
 docker exec -u www-data sunet-nc1 ./init-nc1-gss-leader.sh
 echo "Setting up gss follower (sunet-nc2)"
-docker exec -u www-data sunet-nc2 ./init-nc2-gss-follower.sh
+docker exec -u www-data -e LEADER="$LEADER" sunet-nc2 ./init-nc2-gss-follower.sh
 
 echo "Configuring user_saml on sunet-nc1"
 docker exec -it sunet-mdb1 mysql -u nextcloud -puserp@ssword -h sunet-mdb1 nextcloud -e "INSERT INTO oc_appconfig (appid, configkey, configvalue) VALUES \
@@ -82,5 +90,5 @@ mfa_verified boolean \
 )"
 docker exec -it sunet-mdb1 mysql -u sspuser -psspus3r -h sunet-ssp-mdb saml -e "INSERT INTO users \
 (username, password, display_name, location, mfa_verified) VALUES \
-(\"usr1\", AES_ENCRYPT(\"pwd1\", \"SECRET\"), \"user 1\", \"http://sunet-nc2\", true), \
-(\"usr2\", AES_ENCRYPT(\"pwd2\", \"SECRET\"), \"user 2\", \"http://sunet-nc2\", false)"
+(\"usr1\", AES_ENCRYPT(\"pwd1\", \"SECRET\"), \"user 1\", \"http://$FOLLOWER\", true), \
+(\"usr2\", AES_ENCRYPT(\"pwd2\", \"SECRET\"), \"user 2\", \"http://$FOLLOWER\", false)"
