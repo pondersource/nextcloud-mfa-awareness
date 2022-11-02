@@ -1,0 +1,3 @@
+[submodule "globalsiteselector"]
+	path = globalsiteselector
+	url = https://github.com/pondersource/globalsiteselector

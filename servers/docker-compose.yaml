@@ -61,7 +61,7 @@ services:
     networks:
       - testnet
     volumes:
-      - /root/globalsiteselector:/var/www/html/apps/globalsiteselector
+      - ../globalsiteselector:/var/www/html/apps/globalsiteselector
   
   sunet-nc2:
     container_name: sunet-nc2
@@ -75,7 +75,7 @@ services:
     networks:
       - testnet
     volumes:
-      - /root/globalsiteselector:/var/www/html/apps/globalsiteselector
+      - ../globalsiteselector:/var/www/html/apps/globalsiteselector
 
   sunet-ssp:
     container_name: sunet-ssp
