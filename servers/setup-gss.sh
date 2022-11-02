@@ -2,6 +2,11 @@
 set -e
 
 echo Setting up full docker testnet for gss using docker-compose.
+if [ $1 == "testnet" ]; then
+	SSPHOST=sunet-ssp
+else
+	SSPHOST=localhost:8082
+fi
 
 cd apache-php
 docker build . -t apache-php
@@ -37,14 +42,15 @@ echo "Setting up gss follower (sunet-nc2)"
 docker exec -u www-data sunet-nc2 ./init-nc2-gss-follower.sh
 
 echo "Configuring user_saml on sunet-nc1"
+echo Using http://$SSPHOST as the ssp host
 docker exec -it sunet-mdb1 mysql -u nextcloud -puserp@ssword -h sunet-mdb1 nextcloud -e "INSERT INTO oc_appconfig (appid, configkey, configvalue) VALUES \
 (\"user_saml\", \"type\", \"saml\")"
 docker exec -it sunet-mdb1 mysql -u nextcloud -puserp@ssword -h sunet-mdb1 nextcloud -e "INSERT INTO oc_user_saml_configurations (id, name, configuration) VALUES \
 (1, \"samlidp\", \"{\
 \\\"general-uid_mapping\\\":\\\"username\\\",\
 \\\"general-idp0_display_name\\\":\\\"samlidp\\\",\
-\\\"idp-entityId\\\":\\\"http:\/\/localhost:8082\/simplesaml\/saml2\/idp\/metadata.php\\\",\
-\\\"idp-singleSignOnService.url\\\":\\\"http:\/\/localhost:8082\/simplesaml\/saml2\/idp\/SSOService.php\\\",\
+\\\"idp-entityId\\\":\\\"http:\/\/$SSPHOST\/simplesaml\/saml2\/idp\/metadata.php\\\",\
+\\\"idp-singleSignOnService.url\\\":\\\"http:\/\/$SSPHOST\/simplesaml\/saml2\/idp\/SSOService.php\\\",\
 \\\"idp-x509cert\\\":\\\"MIIDazCCAlOgAwIBAgIUTQg4Wn5st4nmtOT08sQhGRcUbl8wDQYJKoZIhvcNAQEL\
 BQAwRTELMAkGA1UEBhMCQVUxEzARBgNVBAgMClNvbWUtU3RhdGUxITAfBgNVBAoM\
 GEludGVybmV0IFdpZGdpdHMgUHR5IEx0ZDAeFw0yMjEwMjcxMzIxNTlaFw0zMjEw\
