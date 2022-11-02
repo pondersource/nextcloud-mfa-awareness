@@ -15,10 +15,10 @@ git clone https://github.com/pondersource/nextcloud-mfa-awareness
 cd nextcloud-mfa-awareness
 cd servers
 cp -r apache-php/tls .
-./setup.sh totp
+./setup-totp.sh 
 ```
 
-Instead of 'totp' you can also run 'saml', 'webauthn' or 'gss'.
+Instead of 'setup-totp.sh' you can also run 'setup-saml.sh', or 'setup-gss.sh'. If you want to test webauthn then you'll have to use 'setup-with-tls.sh' (see below).
 
 If you're running this on a Windows host system, you can try `setup.bat` instead.
 
@@ -28,7 +28,7 @@ If you run this on mesh.pondersource.org, try http://mesh.pondersource.org:8081 
 Login may not work on http://mesh.pondersource.org:8081 (keeps showing the login page), when this happens, try
  http://mesh.pondersource.org:5800 and then visit http://sunet-nc2 using the browser-inside-a-browser.
 
-In the case of `./setup.sh gss`, the gss leader will be accessable on  https://sunet-nc2/ / https://<host>:8080/
+In the case of `./setup-gss.sh`, the gss leader will be accessable on  https://sunet-nc1/ / https://\<host\>:8080/
 
 NB 1: the gss follower is hard-coded to redirect you to http://localhost:8080 when you're not logged in, even if that
 may not be the correct URL of your gss leader.
