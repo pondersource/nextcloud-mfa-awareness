@@ -60,6 +60,8 @@ services:
       - "8080:80"
     networks:
       - testnet
+    volumes:
+      - /root/globalsiteselector:/var/www/html/apps/globalsiteselector
   
   sunet-nc2:
     container_name: sunet-nc2
@@ -72,6 +74,8 @@ services:
       - "8081:80"
     networks:
       - testnet
+    volumes:
+      - /root/globalsiteselector:/var/www/html/apps/globalsiteselector
 
   sunet-ssp:
     container_name: sunet-ssp
