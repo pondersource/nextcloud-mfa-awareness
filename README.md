@@ -44,10 +44,6 @@ Login may not work on http://mesh.pondersource.org:8081 (keeps showing the login
 
 In the case of `./setup-gss.sh`, the gss leader will be accessable on  https://sunet-nc1/ / https://\<host\>:8080/
 
-NB 1: the gss follower is hard-coded to redirect you to http://localhost:8080 when you're not logged in, even if that
-may not be the correct URL of your gss leader.
-To test the gss setup, make sure to log in to the gss leader instead.
-
 NB 2: For the webauthn flow you will need to run this on a DNS-addressable server, and copy the true TLS cert/key files into ./tls:
 ```
 cp /etc/letsencrypt/live/mesh.pondersource.org/fullchain.pem tls/server.cert
