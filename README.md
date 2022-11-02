@@ -20,6 +20,19 @@ cp -r apache-php/tls .
 
 Instead of 'setup-totp.sh' you can also run 'setup-saml.sh', or 'setup-gss.sh'. If you want to test webauthn then you'll have to use 'setup-with-tls.sh' (see below).
 
+When using `setup-gss.sh` you should specify the how you are going to address the SimpleSamlPhp server:
+### `./setup-gss.sh testnet`
+Using the Firefox tester in the testnet, the gss leader htttp://sunet-nc1 will redirect you to http://sunet-ssp within
+the testnet.
+### `./setup-gss.sh localhost`
+Using Docker on your laptop, the gss leader which exposes htttp://localhost:8080 will redirect you to
+http://localhost:8082 which is exposed by the SimpleSamlPhp server.
+This is also the default (when you just run `./setup-gss.sh`).
+
+### `./setup-gss.sh mesh.pondersource.org`
+Using Docker-exposed ports over the internet, similar to using localhost, but with URLs like htttp://mesh.pondersource.org:8080 and http://mesh.pondersource.org:8082
+
+
 If you're running this on a Windows host system, you can try `setup.bat` instead.
 
 If you run this on localhost, depending on the host system, you may be able to access the Nextcloud GUI on https://sunet-nc2/ or https://localhost:8081/.
