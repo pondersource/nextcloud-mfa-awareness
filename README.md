@@ -31,7 +31,8 @@ This is also the default (when you just run `./setup-gss.sh`).
 
 ### `./setup-gss.sh mesh.pondersource.org`
 Using Docker-exposed ports over the internet, similar to using localhost, but with URLs like htttp://mesh.pondersource.org:8080 and http://mesh.pondersource.org:8082
-
+This will probably not work though, depending on your browser, the SSP server may say you have cookies disabled and not
+show the login screen.
 
 If you're running this on a Windows host system, you can try `setup.bat` instead.
 
