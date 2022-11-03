@@ -30,12 +30,8 @@ class PageController extends Controller {
 	public function index() {
 		$user =[];
 		$result = [];
-		if (!empty($this->session->get('gss.samlUserData'))) {
-			error_log("Found samlUserData from gss!");
-			$attr = $this->session->get('gss.samlUserData');
-			error_log(var_export($attr, true));
-			error_log("why are you null");
-			error_log(var_export($this->session->get('gss.samlUserData'), true));
+		if (!empty($this->session->get('globalScale.UserData'))) {
+			$attr = $this->session->get('globalScale.UserData');
 			$result["isGssAuthenticated"] = true;
 			$result["displayName"] = $attr["displayName"];
 			$result["username"] = $attr["username"];
