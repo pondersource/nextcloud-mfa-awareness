@@ -62,6 +62,7 @@ services:
       - testnet
     volumes:
       - ../globalsiteselector:/var/www/html/apps/globalsiteselector
+      - ../user_saml:/var/www/html/apps/user_saml
   
   sunet-nc2:
     container_name: sunet-nc2
