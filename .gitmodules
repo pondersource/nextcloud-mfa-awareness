@@ -1,3 +1,6 @@
 [submodule "globalsiteselector"]
 	path = globalsiteselector
 	url = https://github.com/pondersource/globalsiteselector
+[submodule "user_saml"]
+	path = user_saml
+	url = https://github.com/pondersource/user_saml
