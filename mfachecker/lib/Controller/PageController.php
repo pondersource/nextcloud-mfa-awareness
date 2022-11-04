@@ -31,10 +31,10 @@ class PageController extends Controller {
 		$user =[];
 		$result = [];
 		if (!empty($this->session->get('globalScale.UserData'))) {
-			$attr = $this->session->get('globalScale.UserData');
+			$attr = $this->session->get('globalScale.UserData')["userData"];
 			$result["isGssAuthenticated"] = true;
 			$result["displayName"] = $attr["displayName"];
-			$result["username"] = $attr["username"];
+			$result["username"] = $attr["uid"];
 			$result["mfaVerified"] = $attr["mfaVerified"];
 			$result["local_tfa"] = false;
 			$result["isSamlAuthenticated"] = false;
