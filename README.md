@@ -14,6 +14,7 @@ Usage:
 ```
 git clone https://github.com/pondersource/nextcloud-mfa-awareness
 cd nextcloud-mfa-awareness
+git submodule update --init
 cd servers
 cp -r apache-php/tls .
 ./setup-totp.sh 
