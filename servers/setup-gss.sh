@@ -80,7 +80,8 @@ h9qjuXIz74Ye4zQA+ALTb3M65kMaRJ9juLEdUVsnLUPvLhKBG8MHXX6sFv2mE6Cj\
 KKNPSvliaChAFHL2gmAEfp2TOzwLF6icRMjuBBCiH/5OiwwViF5mwgpJ938HeC1G\
 IIKsVDQgUIDr+KPqQbC4OEsGUCW8bybibdwNdtYgNpDYwysgYHgWDsRdmDmkh5Ly\
 Q8CODPPBMk+mAN+xC5hX\\\",\
-\\\"saml-attribute-mapping-displayName_mapping\\\":\\\"display_name\\\"}\")"
+\\\"saml-attribute-mapping-displayName_mapping\\\":\\\"display_name\\\",\
+\\\"saml-attribute-mapping-mfa_mapping\\\":\\\"mfa_verified\\\"}\")"
 docker exec -it sunet-mdb1 mysql -u sspuser -psspus3r -h sunet-ssp-mdb saml -e "CREATE TABLE users (\
 username varchar(255), \
 password varbinary(255), \
