@@ -30,8 +30,8 @@ class PageController extends Controller {
 	public function index() {
 		$user =[];
 		$result = [];
-		if (!empty($this->session->get('globalScale.UserData'))) {
-			$attr = $this->session->get('globalScale.UserData')["userData"];
+		if (!empty($this->session->get('globalScale.userData'))) {
+			$attr = $this->session->get('globalScale.userData')["userData"];
 			$result["isGssAuthenticated"] = true;
 			$result["displayName"] = $attr["displayName"];
 			$result["username"] = $attr["uid"];

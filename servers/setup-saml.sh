@@ -70,7 +70,7 @@ password varbinary(255), \
 display_name varchar(255), \
 mfa_verified boolean \
 )"
-docker exec -it sunet-mdb2 mysql -u sspuser -psspus3r -h sunet-ssp-mdb saml -e "INSERT INTO users \
-(username, password, display_name, mfa_verified) VALUES \
-(\"usr1\", AES_ENCRYPT(\"pwd1\", \"SECRET\"), \"user 1\", true), \
-(\"usr2\", AES_ENCRYPT(\"pwd2\", \"SECRET\"), \"user 2\", false)"
+docker exec -it sunet-mdb1 mysql -u sspuser -psspus3r -h sunet-ssp-mdb saml -e "INSERT INTO users \
+(username, password, display_name, location, mfa_verified) VALUES \
+(\"usr1\", AES_ENCRYPT(\"pwd1\", \"SECRET\"), \"user 1\", \"http://$FOLLOWER\", true), \
+(\"usr2\", AES_ENCRYPT(\"pwd2\", \"SECRET\"), \"user 2\", \"http://$FOLLOWER\", false)"
