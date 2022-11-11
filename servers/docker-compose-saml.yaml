@@ -1,0 +1,73 @@
+version: '3.9'
+networks:
+  testnet:
+
+services:
+  sunet-mdb2:
+    container_name: sunet-mdb2
+    image: mariadb
+    environment: 
+      - MARIADB_ROOT_PASSWORD=r00tp@ssw0rd
+      - MARIADB_PASSWORD=userp@ssword
+      - MARIADB_USER=nextcloud
+      - MARIADB_DATABASE=nextcloud
+    networks:
+      - testnet
+
+  sunet-ssp-mdb:
+    container_name: sunet-ssp-mdb
+    image: mariadb
+    environment: 
+      - MYSQL_ROOT_PASSWORD=r00tp@ssw0rd
+      - MYSQL_PASSWORD=sspus3r
+      - MYSQL_USER=sspuser
+      - MYSQL_DATABASE=saml
+    networks:
+      - testnet
+
+  # only to be built, deploying zero replicas:
+  base-app:
+    build: 
+      context: apache-php
+    image: apache-php:latest
+    deploy:
+      mode: replicated
+      replicas: 0
+
+  sunet-nc2:
+    container_name: sunet-nc2
+    tty: true
+    depends_on: 
+      - base-app
+      - sunet-mdb2
+    build: 
+      context: sunet-nextcloud
+    image: "sunet-nextcloud"
+    ports:
+      - "8080:80"
+    networks:
+      - testnet
+    volumes:
+      - ../workflowengine:/var/www/html/apps/workflowengine
+      - ../user_saml:/var/www/html/apps/user_saml
+  
+  sunet-ssp:
+    container_name: sunet-ssp
+    build:
+      context: simple-saml-php
+    image: "simple-saml-php"
+    networks:
+      - testnet
+    ports:
+      - "8082:80"
+
+  firefox-tester:
+    container_name: sunet-tester
+    image: jlesage/firefox:v1.17.1
+    ports:
+      - 5800:5800
+    shm_size: '2gb'
+    volumes:
+      - /tmp/shm:/config:rw
+    networks:
+      - testnet
