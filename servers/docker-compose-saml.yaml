@@ -48,7 +48,8 @@ services:
     networks:
       - testnet
     volumes:
-      - ../workflowengine:/var/www/html/apps/workflowengine
+      - ../server/apps/workflowengine:/var/www/html/apps/workflowengine
+      - ../server/dist:/var/www/html/dist
       - ../user_saml:/var/www/html/apps/user_saml
   
   sunet-ssp:
