@@ -58,6 +58,7 @@ const store = new Store({
 	},
 	mutations: {
 		addRule(state, rule) {
+			console.log(state);
 			state.rules.push({ ...rule, valid: true })
 		},
 		updateRule(state, rule) {
@@ -164,6 +165,8 @@ const store = new Store({
 		 * @return {Function} the available plugins
 		 */
 		getChecksForEntity(state) {
+			var console = window.console;
+			console.log("OKKKKK");
 			return (entity) => {
 				return Object.values(state.checks)
 					.filter((check) => check.supportedEntities.indexOf(entity) > -1 || check.supportedEntities.length === 0)
