@@ -8,6 +8,7 @@ cd ..
 
 echo "Starting the containers"
 docker compose -f docker-compose-saml.yaml  up -d 
+echo "Containers started"
 
 x=$(docker exec -it sunet-mdb2 ss -tulpn | grep 3306 | wc -l)
 until [ $x -ne 0 ]
