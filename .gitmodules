@@ -7,3 +7,4 @@
 [submodule "server"]
 	path = server
 	url = https://github.com/pondersource/server
+	shallow = true
