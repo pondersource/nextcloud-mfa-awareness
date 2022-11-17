@@ -4,3 +4,6 @@
 [submodule "user_saml"]
 	path = user_saml
 	url = https://github.com/pondersource/user_saml
+[submodule "server"]
+	path = server
+	url = https://github.com/pondersource/server
