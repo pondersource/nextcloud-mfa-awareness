@@ -7,6 +7,7 @@ echo Enabling apps
 echo Assuming that you have mounted the user_saml app from the host
 php console.php app:enable user_saml
 php console.php app:enable mfachecker
+php console.php app:enable mfaverifiedzone
 echo Editing config
 sed -i "8 i\    2 => 'sunet-nc2'," config/config.php
 sed -i "8 i\    1 => 'mesh.pondersource.org'," config/config.php
