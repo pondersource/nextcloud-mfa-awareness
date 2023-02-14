@@ -48,8 +48,8 @@ services:
     networks:
       - testnet
     volumes:
-      - ../server/dist/workflowengine-workflowengine.js:/var/www/html/dist/workflowengine-workflowengine.js
-      - ../server/dist/workflowengine-workflowengine.js.map:/var/www/html/dist/workflowengine-workflowengine.js.map
+      - ../server:/var/www/html
+      - ./sunet-nextcloud:/var/www/html
       - ../user_saml:/var/www/html/apps/user_saml
       - ../mfaverifiedzone:/var/www/html/apps/mfaverifiedzone
   

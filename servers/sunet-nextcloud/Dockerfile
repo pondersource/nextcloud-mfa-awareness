@@ -5,7 +5,7 @@ RUN rm -rf /var/www/html
 WORKDIR /var/www
 # See https://github.com/pondersource/nextcloud-mfa-awareness/issues/2#issuecomment-1291971029
 RUN wget https://download.nextcloud.com/server/releases/latest-24.zip
-RUN unzip latest-24.zip -d . && rm latest-24.zip
+RUN unzip latest-24.zip -d . && rm latest-24.zip 
 RUN mv nextcloud html
 RUN chown -R www-data:www-data ./html
 WORKDIR /var/www/html/apps
