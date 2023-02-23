@@ -11,6 +11,8 @@ services:
       - MARIADB_PASSWORD=userp@ssword
       - MARIADB_USER=nextcloud
       - MARIADB_DATABASE=nextcloud
+    ports:
+      - "3306:3306"
     networks:
       - testnet
 
@@ -49,7 +51,6 @@ services:
       - testnet
     volumes:
       - ../server:/var/www/html
-      - ./sunet-nextcloud:/var/www/html
       - ../user_saml:/var/www/html/apps/user_saml
       - ../mfaverifiedzone:/var/www/html/apps/mfaverifiedzone
   
