@@ -1,4 +1,11 @@
 #!/bin/bash
+cd apps/globalsiteselector
+echo Building mounted app: globalsiteselector
+composer install
+cd ../user_saml
+echo Building mounted app: user_saml
+composer install
+cd ../..
 echo Installing Nextcloud
 php console.php maintenance:install --admin-user "Admin" --admin-pass "!QAZ1qaz" --database "mysql" --database-name "nextcloud" --database-user "nextcloud" --database-pass "userp@ssword" --database-host "sunet-mdb2"
 echo Enabling apps
