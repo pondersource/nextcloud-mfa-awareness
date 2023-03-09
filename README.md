@@ -1,29 +1,27 @@
 # nextcloud-mfa-awareness
 Make Nextcloud aware of whether the current user is logged in with Multi-Factor Authentication
 
-Please follow the instructions from the new [mfaverifiedzone app](https://github.com/pondersource/mfaverifiedzone) which includes
+Open this repo on GitPod or any other Docker-capable development environment and:
+```
+
+
+
+<!-- Please follow the instructions from the new [mfaverifiedzone app](https://github.com/pondersource/mfaverifiedzone) which includes
 tag creation, workflow rule creation, and the GUI to create/remove MFA-only zones.
 
 This repo contains
 the [mfachecker Nextcloud app](./mfachecker) that only demonstrated how it is
-possible to check if the current user is logged in with multi-factor authentication (MFA) or not.
-
-Requirements:
-* [Docker](https://docs.docker.com/engine/install/)
-* Possibly also [Docker Compose Plugin](https://github.com/pondersource/nextcloud-mfa-awareness/issues/5)
-* Have the attribute-forwarding branch of https://github.com/pondersource/globalsiteselector/ checked out to /root/globalsiteselector
+possible to check if the current user is logged in with multi-factor authentication (MFA) or not. -->
 
 Usage:
 ```
-git clone https://github.com/pondersource/nextcloud-mfa-awareness
-cd nextcloud-mfa-awareness
 git submodule update --init
 cd servers
 cp -r apache-php/tls .
-./setup-totp.sh 
+./setup-gss.sh testnet
 ```
 
-Instead of 'setup-totp.sh' you can also run 'setup-saml.sh', or 'setup-gss.sh'. If you want to test webauthn then you'll have to use 'setup-with-tls.sh' (see below).
+Instead of 'setup-gss.sh' you can also run 'setup-saml.sh', or 'setup-gss.sh'. If you want to test webauthn then you'll have to use 'setup-with-tls.sh' (see below).
 
 When using `setup-gss.sh` you should specify the how you are going to address the SimpleSamlPhp server:
 ### `./setup-gss.sh testnet`
@@ -60,4 +58,4 @@ restart the server if you want to go back to using the regular `./setup.sh` scri
 
 NB 3: If you run two setup scripts in a row, the docker containers from the previous run will still be around.
 If you want to kill and remove *all* Docker containers on the host (including possibly unrelated ones that were started by
-other processes or users), run `./clean.sh`). Use at your own risk. :)
+other processes or users), run `./clean.sh`. Use at your own risk. :)
