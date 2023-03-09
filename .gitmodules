@@ -6,7 +6,7 @@
 	url = https://github.com/pondersource/user_saml
 [submodule "server"]
 	path = server
-	url = git@github.com:pondersource/server.git
+	url = https://github.com/pondersource/server.git
 [submodule "mfaverifiedzone"]
 	path = mfaverifiedzone
-	url = git@github.com:pondersource/mfaverifiedzone.git
+	url = https://github.com/pondersource/mfaverifiedzone.git
