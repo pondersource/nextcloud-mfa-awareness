@@ -1,9 +1,12 @@
 # nextcloud-mfa-awareness
 Make Nextcloud aware of whether the current user is logged in with Multi-Factor Authentication
 
+Please follow the instructions from the new [mfaverifiedzone app](https://github.com/pondersource/mfaverifiedzone) which includes
+tag creation, workflow rule creation, and the GUI to create/remove MFA-only zones.
 
-The [mfachecker Nextcloud app](./mfachecker) in this repo demonstrates how it is possible to check if the current user is logged in with
-multi-factor authentication (MFA) or not.
+This repo contains
+the [mfachecker Nextcloud app](./mfachecker) that only demonstrated how it is
+possible to check if the current user is logged in with multi-factor authentication (MFA) or not.
 
 Requirements:
 * [Docker](https://docs.docker.com/engine/install/)
