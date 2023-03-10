@@ -15,6 +15,9 @@ Now use the exposed port 5800 of the Firefox tester container as a browser-insid
 
 https://sunet-nc2 (ignore the security warning, these as self-signed certs)
 
+Log in with usr1 / pwd1
+[FIXME: to be continued ...]
+
 
 Instead of 'setup-saml.sh' you can also run 'setup-totp.sh', or 'setup-gss.sh'. If you want to test webauthn then you'll have to use 'setup-with-tls.sh' (see below).
 

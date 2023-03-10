@@ -19,8 +19,8 @@ do
 done
 echo sunet-mdb2 port is open
 
-echo "chowning /var/www/html on sunet-nc2"
-docker exec sunet-nc2 chown -R www-data:www-data .
+echo "chowning /var/www/html/config on sunet-nc2"
+docker exec sunet-nc2 chown -R www-data:www-data ./config
 
 echo "Configuring user_saml on sunet-nc2"
 docker exec -u www-data sunet-nc2 ./init-nc2-local-saml.sh
