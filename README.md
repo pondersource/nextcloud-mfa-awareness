@@ -2,26 +2,21 @@
 Make Nextcloud aware of whether the current user is logged in with Multi-Factor Authentication
 
 Open this repo on GitPod or any other Docker-capable development environment and:
-```
 
-
-
-<!-- Please follow the instructions from the new [mfaverifiedzone app](https://github.com/pondersource/mfaverifiedzone) which includes
-tag creation, workflow rule creation, and the GUI to create/remove MFA-only zones.
-
-This repo contains
-the [mfachecker Nextcloud app](./mfachecker) that only demonstrated how it is
-possible to check if the current user is logged in with multi-factor authentication (MFA) or not. -->
-
-Usage:
 ```
 git submodule update --init
-cd servers
-cp -r apache-php/tls .
-./setup-gss.sh testnet
+cd server
+git submodule update --init
+cd ../servers
+./setup-saml.sh
 ```
 
-Instead of 'setup-gss.sh' you can also run 'setup-saml.sh', or 'setup-gss.sh'. If you want to test webauthn then you'll have to use 'setup-with-tls.sh' (see below).
+Now use the exposed port 5800 of the Firefox tester container as a browser-inside-the-browser to visit
+
+https://sunet-nc2 (ignore the security warning, these as self-signed certs)
+
+
+Instead of 'setup-saml.sh' you can also run 'setup-totp.sh', or 'setup-gss.sh'. If you want to test webauthn then you'll have to use 'setup-with-tls.sh' (see below).
 
 When using `setup-gss.sh` you should specify the how you are going to address the SimpleSamlPhp server:
 ### `./setup-gss.sh testnet`
