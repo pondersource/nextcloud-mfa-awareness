@@ -1,12 +1,19 @@
 # nextcloud-mfa-awareness
 Make Nextcloud aware of whether the current user is logged in with Multi-Factor Authentication
 
+Moving parts:
+* our contribution to NC user_saml: https://github.com/nextcloud/user_saml/pull/668 (merged)
+* our contribution to NC GSS: https://github.com/nextcloud/globalsiteselector/pull/80 (merged)
+* our contribution to NC MFA: https://github.com/nextcloud/server/pull/35555 (pending)
+* our contribution to NC workflow engine: https://github.com/nextcloud/server/pull/37195 (pending)
+
 Open this repo on GitPod or any other Docker-capable development environment and:
 
 ```
 git submodule update --init
 cd server
 git submodule update --init
+composer install
 cd ../servers
 ./setup-saml.sh
 ```
