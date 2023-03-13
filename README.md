@@ -20,11 +20,16 @@ cd ../servers
 
 Now use the exposed port 5800 of the Firefox tester container as a browser-inside-the-browser to visit
 
-https://sunet-nc2 (ignore the security warning, these as self-signed certs)
+https://sunet-nc2/index.php/login?direct=1 (ignore the security warning, these as self-signed certs)
+or
+http://127.0.0.1:8080/index.php/login?direct=1
+or
+http://127.0.0.1:8081/index.php/login?direct=1
 
-Log in with usr1 / pwd1
-[FIXME: to be continued ...]
-
+Log in with admin / !QAZ1qaz
+Visit http://127.0.0.1:8081/index.php/settings/admin/workflow
+You should see some flows there
+[to be continued...]
 
 Instead of 'setup-saml.sh' you can also run 'setup-totp.sh', or 'setup-gss.sh'. If you want to test webauthn then you'll have to use 'setup-with-tls.sh' (see below).
 
