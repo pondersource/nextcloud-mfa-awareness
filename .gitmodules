@@ -7,7 +7,7 @@
 [submodule "server"]
 	path = server
 	url = https://github.com/pondersource/server.git
-	branch = mfa-check-rebased
+	branch = sunet-dev
 [submodule "mfaverifiedzone"]
 	path = mfaverifiedzone
 	url = https://github.com/pondersource/mfaverifiedzone.git
