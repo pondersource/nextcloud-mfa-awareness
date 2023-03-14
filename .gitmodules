@@ -1,11 +1,16 @@
 [submodule "globalsiteselector"]
 	path = globalsiteselector
-	url = https://github.com/pondersource/globalsiteselector
+	url = https://github.com/nextcloud/globalsiteselector
 [submodule "user_saml"]
 	path = user_saml
-	url = https://github.com/pondersource/user_saml
+	url = https://github.com/nextcloud/user_saml
 [submodule "server"]
 	path = server
-	url = https://github.com/pondersource/server
-	shallow = true
-    branch = feat/mfaverified-check
+	url = https://github.com/pondersource/server.git
+	branch = sunet-dev
+[submodule "mfaverifiedzone"]
+	path = mfaverifiedzone
+	url = https://github.com/pondersource/mfaverifiedzone.git
+[submodule "files_accesscontrol"]
+	path = files_accesscontrol
+	url = https://github.com/nextcloud/files_accesscontrol

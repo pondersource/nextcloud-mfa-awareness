@@ -6,6 +6,16 @@ cd ./simple-saml-php
 docker build . -t simple-saml-php
 cd ..
 
+echo Rebuilding the apache-php image
+cd ./apache-php
+docker build . -t apache-php
+cd ..
+
+echo Rebuilding the sunet-nextcloud image
+cd ./sunet-nextcloud
+docker build . -t sunet-nextcloud
+cd ..
+
 echo "Starting the containers"
 docker compose -f docker-compose-saml.yaml  up -d 
 echo "Containers started"

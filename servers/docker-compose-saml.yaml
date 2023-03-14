@@ -11,6 +11,8 @@ services:
       - MARIADB_PASSWORD=userp@ssword
       - MARIADB_USER=nextcloud
       - MARIADB_DATABASE=nextcloud
+    ports:
+      - "3306:3306"
     networks:
       - testnet
 
@@ -29,7 +31,7 @@ services:
   base-app:
     build: 
       context: apache-php
-    image: apache-php:latest
+    # image: apache-php:latest
     deploy:
       mode: replicated
       replicas: 0
@@ -42,22 +44,23 @@ services:
       - sunet-mdb2
     build: 
       context: sunet-nextcloud
-    image: "sunet-nextcloud"
+    # image: "sunet-nextcloud"
     ports:
       - "8080:80"
     networks:
       - testnet
     volumes:
-      - ../server/apps/workflowengine:/var/www/html/apps/workflowengine
-      - ../server/apps/workflowengine/js/workflowengine.js:/var/www/html/dist/workflowengine-workflowengine.js
-      - ../server/apps/workflowengine/js/workflowengine.js.map:/var/www/html/dist/workflowengine-workflowengine.js.map
+      - ../server:/var/www/html
       - ../user_saml:/var/www/html/apps/user_saml
+      - ../mfachecker:/var/www/html/apps/mfachecker
+      - ../files_accesscontrol:/var/www/html/apps/files_accesscontrol
+      - ../mfaverifiedzone:/var/www/html/apps/mfaverifiedzone
   
   sunet-ssp:
     container_name: sunet-ssp
     build:
       context: simple-saml-php
-    image: "simple-saml-php"
+    # image: "simple-saml-php"
     networks:
       - testnet
     ports:
