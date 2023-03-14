@@ -1,4 +1,7 @@
 #!/bin/bash
+
+rm -rf data/
+rm -f config/config.php
 set -e
 
 echo Installing Nextcloud

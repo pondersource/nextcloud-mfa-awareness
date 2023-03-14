@@ -14,8 +14,15 @@ git submodule update --init
 cd server
 git submodule update --init
 composer install
+check branches for submodules with .gitmodules
+check the maximum version of nextcloud inside `files_accesscontrol` and `mfaverifiedzone` and `user_saml` and `mfachecker` apps.
+The maximum supported version of nextclude for apps is inside `appinfi/info.xml` and version of Nextcloud is inside `server/version.php`
+Copy all init files started wih `init-nc2-*` to server folder. (For correctly mounting)
+
 cd ../servers
 ./setup-saml.sh
+
+for cleaning created docker containers use ./clean.sh
 ```
 
 Now use the exposed port 5800 of the Firefox tester container as a browser-inside-the-browser to visit
@@ -29,7 +36,24 @@ http://127.0.0.1:8081/index.php/login?direct=1
 Log in with admin / !QAZ1qaz
 Visit http://127.0.0.1:8081/index.php/settings/admin/workflow
 You should see some flows there
-[to be continued...]
+
+For test over users you can open http://127.0.0.1:5800 (firefox)
+Inside the opened browser go to http://sunet-nc2
+
+We have two users with this creadentials:
+User1:
+* Username: usr1
+* Password: pwd1
+* MFA Verified
+
+User2:
+* Username: usr2
+* Password: pwd2
+* Not MFA Verified
+
+Everyone can change MFA Zone toggle button when is owner of that file or is Admin.
+
+
 
 Instead of 'setup-saml.sh' you can also run 'setup-totp.sh', or 'setup-gss.sh'. If you want to test webauthn then you'll have to use 'setup-with-tls.sh' (see below).
 

@@ -11,3 +11,6 @@
 [submodule "mfaverifiedzone"]
 	path = mfaverifiedzone
 	url = https://github.com/pondersource/mfaverifiedzone.git
+[submodule "files_accesscontrol"]
+	path = files_accesscontrol
+	url = https://github.com/nextcloud/files_accesscontrol
