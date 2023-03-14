@@ -14,6 +14,10 @@ git submodule update --init
 cd server
 git submodule update --init
 composer install
+If got error for ext-zip library just run command as below:
+
+composer install --ignore-platform-req=ext-zip
+
 ```
 check branches for submodules with .gitmodules
 check the maximum version of nextcloud inside `files_accesscontrol` and `mfaverifiedzone` and `user_saml` and `mfachecker` apps.
