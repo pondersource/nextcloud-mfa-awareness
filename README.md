@@ -14,14 +14,20 @@ git submodule update --init
 cd server
 git submodule update --init
 composer install
-If got error for ext-zip library just run command as below:
-
+```
+If got error for ext-zip library, just run command as below:
+```
 composer install --ignore-platform-req=ext-zip
 
 ```
-check branches for submodules with .gitmodules
-check the maximum version of nextcloud inside `files_accesscontrol` and `mfaverifiedzone` and `user_saml` and `mfachecker` apps.
+check branches for submodules with expected branches for them inside .gitmodules
+
+check the maximum supported version of nextcloud inside `files_accesscontrol` and `mfaverifiedzone` and `user_saml` and `mfachecker` apps.
+
+
 The maximum supported version of nextclude for apps is inside `appinfi/info.xml` and version of Nextcloud is inside `server/version.php`
+
+
 Copy all init files started with `init-nc2-*` to server folder. (For correctly mounting)
 
 ```
