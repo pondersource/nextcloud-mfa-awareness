@@ -16,25 +16,13 @@ cd server
 git submodule update --init
 composer install
 ```
-If got error for ext-zip library, just run command as below:
+If got error for ext-zip library, just run that last command as:
 ```
 composer install --ignore-platform-req=ext-zip
 
 ```
 
 # Step TWO
-check branches for submodules with expected branches for them inside .gitmodules
-
-## Notice
-Rquired applications (`files_accesscontrol`, `mfaverifiedzone`, `user_saml`, `mfachecker`) should support the installed nextcloud version.
-> you can find NextCloud version in `server/version.php`
-
-> supported nextcloud version is sepacified by **min-version** and **max-vesion** in **{appFolder}/appinfo/info.xml**
-
-
-Copy all init files started with `init-nc2-*` to server folder. (For correctly mounting)
-
-# Step THREE
 ```
 cd ../servers
 ./setup-saml.sh
