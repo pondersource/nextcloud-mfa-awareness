@@ -12,7 +12,7 @@
     <category>tools</category>
     <bugs>http://github.com</bugs>
     <dependencies>
-        <nextcloud min-version="15" max-version="25"/>
+        <nextcloud min-version="15" max-version="27"/>
     </dependencies>
     <navigations>
         <navigation>
