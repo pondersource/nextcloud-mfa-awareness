@@ -16,7 +16,10 @@ cd server
 git submodule update --init
 composer install
 ```
-If got error for ext-zip library, just run that last command as:
+If you're using GitPod then these steps will already have been executed by
+`gitpod-init.sh` but it doesn't hurt to run them again.
+
+If you get an error about the ext-zip library, just run that last command as:
 ```
 composer install --ignore-platform-req=ext-zip
 
@@ -27,6 +30,10 @@ composer install --ignore-platform-req=ext-zip
 cd ../servers
 ./setup-saml.sh
 ```
+
+This will build the Docker images, set up the Docker compose, and run a few initialization
+scripts against the Nextcloud and database containers.
+
 ## Notice
 ***for cleaning created docker containers use:***
 ```
