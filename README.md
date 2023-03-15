@@ -7,6 +7,7 @@ Moving parts:
 * our contribution to NC MFA: https://github.com/nextcloud/server/pull/35555 (pending)
 * our contribution to NC workflow engine: https://github.com/nextcloud/server/pull/37195 (pending)
 
+# Step ONE
 Open this repo on GitPod or any other Docker-capable development environment and:
 
 ```
@@ -20,20 +21,25 @@ If got error for ext-zip library, just run command as below:
 composer install --ignore-platform-req=ext-zip
 
 ```
+
+# Step TWO
 check branches for submodules with expected branches for them inside .gitmodules
 
-check the maximum supported version of nextcloud inside `files_accesscontrol` and `mfaverifiedzone` and `user_saml` and `mfachecker` apps.
+## Notice
+Rquired applications (`files_accesscontrol`, `mfaverifiedzone`, `user_saml`, `mfachecker`) should support the installed nextcloud version.
+> you can find NextCloud version in `server/version.php`
 
-
-The maximum supported version of nextclude for apps is inside `appinfi/info.xml` and version of Nextcloud is inside `server/version.php`
+> supported nextcloud version is sepacified by **min-version** and **max-vesion** in **{appFolder}/appinfo/info.xml**
 
 
 Copy all init files started with `init-nc2-*` to server folder. (For correctly mounting)
 
+# Step THREE
 ```
 cd ../servers
 ./setup-saml.sh
 ```
+## Notice
 ***for cleaning created docker containers use:***
 ```
 ./clean.sh
@@ -51,7 +57,7 @@ Sign in with admin / !QAZ1qaz
 Visit http://127.0.0.1:8081/index.php/settings/admin/workflow
 You should see some flows there
 
-For test over users you can open http://127.0.0.1:5800 (firefox)
+For testing other users use http://127.0.0.1:5800 (firefox)
 Inside the opened browser go to http://sunet-nc2
 
 We have two users with this creadentials:
@@ -67,12 +73,12 @@ User2:
 
 Only **file owner** or **admin** users can toggle the MFA Zone button.
 
+
+# Additional configuration:
 There are three other options instead of 'setup-saml.sh'
 - 'setup-gss.sh'
 - 'setup-totp.sh'
 - 'setup-with-tls.sh'
-
-<!--Instead of 'setup-saml.sh' you can also run 'setup-totp.sh', or 'setup-gss.sh'. If you want to test webauthn then you'll have to use 'setup-with-tls.sh' (see below).-->
 
 When using `setup-gss.sh` you should specify the how you are going to address the SimpleSamlPhp server:
 
