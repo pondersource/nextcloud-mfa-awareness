@@ -2,7 +2,7 @@
 Make Nextcloud aware of whether the current user is logged in with Multi-Factor Authentication
 
 Production parts:
-* the 'mfazones' app in the Nextcloud app store: (tbc)
+* the 'mfazones' app in the Nextcloud app store: https://apps.nextcloud.com/apps/mfazones
 * the 'mfazones' app source code: https://github.com/pondersource/mfazones
 * our contribution to NC user_saml: https://github.com/nextcloud/user_saml/pull/668 (merged)
 * our contribution to NC GSS: https://github.com/nextcloud/globalsiteselector/pull/80 (merged)
@@ -13,7 +13,9 @@ Research parts:
 * this documentation repo: https://github.com/pondersource/nextcloud-mfa-awareness#nextcloud-mfa-awareness
 * the 'mfachecker' app inside there (demonstration and research purposes only): https://github.com/pondersource/nextcloud-mfa-awareness/tree/main/mfachecker
 
-# Step ONE
+
+# Try it out using this dev environment
+## Step ONE
 Open this repo on GitPod or any other Docker-capable development environment and:
 
 ```
@@ -31,7 +33,7 @@ composer install --ignore-platform-req=ext-zip
 
 ```
 
-# Step TWO
+## Step TWO
 ```
 cd ../servers
 ./setup-saml.sh
@@ -40,7 +42,7 @@ cd ../servers
 This will build the Docker images, set up the Docker compose, and run a few initialization
 scripts against the Nextcloud and database containers.
 
-## Notice
+### Notice
 ***for cleaning created docker containers use:***
 ```
 ./clean.sh
@@ -71,8 +73,11 @@ User2:
 
 Only **file owner** or **admin** users can toggle the MFA Zone button.
 
+Not that this tests the app on a server with local SAML login.
+The setups with gss and Nextcloud-native MFA which we researched in milestone
+3 are separate (see below).
 
-# Additional configuration:
+## Other dev setups:
 There are three other options instead of 'setup-saml.sh'
 - 'setup-gss.sh'
 - 'setup-totp.sh'
