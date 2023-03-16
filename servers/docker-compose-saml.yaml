@@ -54,7 +54,7 @@ services:
       - ../user_saml:/var/www/html/apps/user_saml
       - ../mfachecker:/var/www/html/apps/mfachecker
       - ../files_accesscontrol:/var/www/html/apps/files_accesscontrol
-      - ../mfaverifiedzone:/var/www/html/apps/mfaverifiedzone
+      - ../mfazones:/var/www/html/apps/mfazones
   
   sunet-ssp:
     container_name: sunet-ssp
