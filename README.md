@@ -48,9 +48,13 @@ scripts against the Nextcloud and database containers.
 ./clean.sh
 ```
 
-Now use the exposed port 5800 of the Firefox tester container as a browser-inside-the-browser to visit
+Now you should be able to visit:
 
 http://127.0.0.1:8080/index.php/login?direct=1
+
+Or use http://127.0.0.1:5800 (firefox) and inside the opened browser
+go to http://sunet-nc2/index.php/login?direct=1 (make sure to use http and not https here)
+
 
 Sign in with admin / !QAZ1qaz
 Visit http://127.0.0.1:8080/index.php/settings/admin/workflow
@@ -58,7 +62,8 @@ You should see a flow there that prohibits access to files tagged with 'mfazone'
 Unless the current user is MFA verified.
 
 For testing other users use http://127.0.0.1:5800 (firefox)
-Inside the opened browser go to http://sunet-nc2 (make sure to use http and not https here)
+Inside the opened browser go to http://sunet-nc2 (make sure to use http and not https here,
+and this time leave off the /index.php/login?direct=1 path).
 
 We have two users with this creadentials:
 User1:
