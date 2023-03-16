@@ -1,11 +1,16 @@
 # nextcloud-mfa-awareness
 Make Nextcloud aware of whether the current user is logged in with Multi-Factor Authentication
 
-Moving parts:
+Production parts:
+* the 'mfazones' app: https://github.com/pondersource/mfazones
 * our contribution to NC user_saml: https://github.com/nextcloud/user_saml/pull/668 (merged)
 * our contribution to NC GSS: https://github.com/nextcloud/globalsiteselector/pull/80 (merged)
 * our contribution to NC MFA: https://github.com/nextcloud/server/pull/35555 (pending)
 * our contribution to NC workflow engine: https://github.com/nextcloud/server/pull/37195 (pending)
+
+Research parts:
+* this documentation repo: https://github.com/pondersource/nextcloud-mfa-awareness#nextcloud-mfa-awareness
+* the 'mfachecker' app inside there (demonstration and research purposes only): https://github.com/pondersource/nextcloud-mfa-awareness/tree/main/mfachecker
 
 # Step ONE
 Open this repo on GitPod or any other Docker-capable development environment and:
@@ -42,18 +47,16 @@ scripts against the Nextcloud and database containers.
 
 Now use the exposed port 5800 of the Firefox tester container as a browser-inside-the-browser to visit
 
-https://sunet-nc2/index.php/login?direct=1 (ignore the security warning, these as self-signed certs)
-or
 http://127.0.0.1:8080/index.php/login?direct=1
-or
-http://127.0.0.1:8081/index.php/login?direct=1
 
 Sign in with admin / !QAZ1qaz
-Visit http://127.0.0.1:8081/index.php/settings/admin/workflow
-You should see some flows there
+Visit http://127.0.0.1:8080/index.php/settings/admin/workflow
+You should see a flow there that prohibits access to files tagged with 'mfazone'
+Unless the current user is MFA verified or the user is an admin.
+(FIXME: https://github.com/pondersource/nextcloud-mfa-awareness/issues/53)
 
 For testing other users use http://127.0.0.1:5800 (firefox)
-Inside the opened browser go to http://sunet-nc2
+Inside the opened browser go to http://sunet-nc2 (make sure to use http and not https here)
 
 We have two users with this creadentials:
 User1:
