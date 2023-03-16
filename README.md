@@ -1,7 +1,7 @@
 # nextcloud-mfa-awareness
 Make Nextcloud aware of whether the current user is logged in with Multi-Factor Authentication
 
-Production parts:
+Production parts (pending security audit in milestone 6):
 * the 'mfazones' app in the Nextcloud app store: https://apps.nextcloud.com/apps/mfazones
 * the 'mfazones' app source code: https://github.com/pondersource/mfazones
 * our contribution to NC user_saml: https://github.com/nextcloud/user_saml/pull/668 (merged)
