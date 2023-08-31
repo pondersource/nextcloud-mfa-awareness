@@ -6,8 +6,8 @@ Production parts (pending security audit in milestone 6):
 * the 'mfazones' app source code: https://github.com/pondersource/mfazones
 * our contribution to NC user_saml: https://github.com/nextcloud/user_saml/pull/668 (merged)
 * our contribution to NC GSS: https://github.com/nextcloud/globalsiteselector/pull/80 (merged)
-* our contribution to NC MFA: https://github.com/pondersource/server/pull/319 (pending)
-* our contribution to NC workflow engine: https://github.com/pondersource/server/pull/318 (pending)
+* our contribution to NC MFA: https://github.com/nextcloud/server/pull/39411 (pending)
+* our contribution to NC workflow engine: https://github.com/nextcloud/server/pull/39471 (pending)
 
 Research parts:
 * this documentation repo: https://github.com/pondersource/nextcloud-mfa-awareness#nextcloud-mfa-awareness
