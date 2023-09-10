@@ -51,6 +51,7 @@ services:
       - testnet
     volumes:
       - ../server:/var/www/html
+      - ../twofactor_totp:/var/www/html/apps/twofactor_totp
       - ../user_saml:/var/www/html/apps/user_saml
       - ../mfachecker:/var/www/html/apps/mfachecker
       - ../files_accesscontrol:/var/www/html/apps/files_accesscontrol

@@ -12,6 +12,7 @@ php console.php app:enable user_saml
 php console.php app:enable mfachecker
 php console.php app:enable files_accesscontrol
 php console.php app:enable mfazones
+php console.php app:enable twofactor_totp
 echo Editing config
 sed -i "8 i\    2 => 'sunet-nc2'," config/config.php
 sed -i "8 i\    1 => 'mesh.pondersource.org'," config/config.php
