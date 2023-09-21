@@ -16,3 +16,6 @@
 [submodule "files_accesscontrol"]
 	path = files_accesscontrol
 	url = https://github.com/nextcloud/files_accesscontrol
+[submodule "twofactor_totp"]
+	path = twofactor_totp
+	url = https://github.com/nextcloud/twofactor_totp.git
