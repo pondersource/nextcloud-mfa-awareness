@@ -128,3 +128,7 @@ restart the server if you want to go back to using the regular `./setup.sh` scri
 NB 2: If you run two setup scripts in a row, the docker containers from the previous run will still be around.
 If you want to kill and remove *all* Docker containers on the host (including possibly unrelated ones that were started by
 other processes or users), run `./clean.sh`. Use at your own risk. :)
+
+
+## Known Issues
+- [Error after login with GSS](https://github.com/pondersource/nextcloud-mfa-awareness/issues/79)
