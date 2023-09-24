@@ -5,7 +5,7 @@ networks:
 services:
   sunet-mdb1:
     container_name: sunet-mdb1
-    image: mariadb
+    image: mariadb:10
     environment: 
       - MARIADB_ROOT_PASSWORD=r00tp@ssw0rd
       - MARIADB_PASSWORD=userp@ssword
@@ -16,7 +16,7 @@ services:
 
   sunet-mdb2:
     container_name: sunet-mdb2
-    image: mariadb
+    image: mariadb:10
     # volumes:
     #   - ~/apps/mariadb:/var/lib/mysql
     environment: 
@@ -29,7 +29,7 @@ services:
 
   sunet-ssp-mdb:
     container_name: sunet-ssp-mdb
-    image: mariadb
+    image: mariadb:10
     environment: 
       - MYSQL_ROOT_PASSWORD=r00tp@ssw0rd
       - MYSQL_PASSWORD=sspus3r
