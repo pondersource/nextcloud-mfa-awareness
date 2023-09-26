@@ -32,12 +32,20 @@ echo sunet-mdb2 port is open
 echo "chowning /var/www/html on sunet-nc2"
 docker exec sunet-nc2 chown -R www-data:www-data .
 
+echo "Installing dependencies of apps"
+docker exec -it --workdir=/var/www/html/apps/user_saml sunet-nc2 composer install
+docker exec -it --workdir=/var/www/html/apps/mfachecker sunet-nc2 make
+docker exec -it --workdir=/var/www/html/apps/files_accesscontrol sunet-nc2 composer install
+docker exec -it --workdir=/var/www/html/apps/mfazones sunet-nc2 composer install
+docker exec -it --workdir=/var/www/html/apps/twofactor_totp sunet-nc2 composer install
+
+
 echo "Configuring user_saml on sunet-nc2"
 docker exec -u www-data sunet-nc2 ./init-nc2-local-saml.sh
 docker exec -it sunet-mdb2 mysql -u nextcloud -puserp@ssword -h sunet-mdb2 nextcloud -e "INSERT INTO oc_appconfig (appid, configkey, configvalue) VALUES \
 (\"user_saml\", \"type\", \"saml\")"
 docker exec -it sunet-mdb2 mysql -u nextcloud -puserp@ssword -h sunet-mdb2 nextcloud -e "INSERT INTO oc_user_saml_configurations (id, name, configuration) VALUES \
-(1, \"samlidp\", \"{\
+(1, \"samlidp\", \"{\ 
 \\\"general-uid_mapping\\\":\\\"username\\\",\
 \\\"general-idp0_display_name\\\":\\\"samlidp\\\",\
 \\\"idp-entityId\\\":\\\"http:\/\/sunet-ssp\/simplesaml\/saml2\/idp\/metadata.php\\\",\
