@@ -29,9 +29,9 @@ services:
 
   # only to be built, deploying zero replicas:
   base-app:
-    build: 
-      context: apache-php
-    # image: apache-php:latest
+    # build: 
+    #   context: apache-php
+    image: apache-php:latest
     deploy:
       mode: replicated
       replicas: 0
@@ -42,9 +42,9 @@ services:
     depends_on: 
       - base-app
       - sunet-mdb2
-    build: 
-      context: sunet-nextcloud
-    # image: "sunet-nextcloud"
+    # build: 
+    #   context: sunet-nextcloud
+    image: "sunet-nextcloud"
     ports:
       - "8080:80"
     networks:
@@ -59,9 +59,9 @@ services:
   
   sunet-ssp:
     container_name: sunet-ssp
-    build:
-      context: simple-saml-php
-    # image: "simple-saml-php"
+    # build:
+    #   context: simple-saml-php
+    image: "simple-saml-php"
     networks:
       - testnet
     ports:
