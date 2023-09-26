@@ -29,7 +29,7 @@ services:
 
   # only to be built, deploying zero replicas:
   base-app:
-    # build: 
+    # build:
     #   context: apache-php
     image: apache-php:latest
     deploy:
@@ -42,7 +42,7 @@ services:
     depends_on: 
       - base-app
       - sunet-mdb2
-    # build: 
+    # build:
     #   context: sunet-nextcloud
     image: sunet-nextcloud:latest
     ports:
