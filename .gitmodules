@@ -4,8 +4,8 @@
 	branch = sunet-dev
 [submodule "user_saml"]
 	path = user_saml
-	url = https://github.com/pondersource/user_saml
-	branch = sunet-dev
+	url = https://github.com/nextcloud/user_saml
+	branch = stable-5.2
 [submodule "server"]
 	path = server
 	url = https://github.com/pondersource/server.git
