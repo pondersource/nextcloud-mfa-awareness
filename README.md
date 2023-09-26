@@ -76,9 +76,10 @@ User2:
 * Password: pwd2
 * Not MFA Verified
 
-Only **file owner** or **admin** users can toggle the MFA Zone button.
+Only **file owner** or **admin** users can toggle the MFA Zone button,
+and they can only do this from within an MFA-verified session.
 
-Not that this tests the app on a server with local SAML login.
+Note that this tests the app on a server with local SAML login.
 The setups with gss and Nextcloud-native MFA which we researched in milestone
 3 are separate (see below).
 
