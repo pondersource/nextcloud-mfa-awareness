@@ -22,7 +22,4 @@ RUN chmod u+x init-*.sh
 ENV PHP_MEMORY_LIMIT="512M"
 RUN cd apps/mfachecker && make
 USER root
-# switch php version for Nextloud.
-RUN switch-php.sh 8.2
-
 CMD /usr/sbin/apache2ctl -DFOREGROUND & tail --follow /var/log/apache2/access.log & tail --follow /var/log/apache2/error.log & tail --follow data/nextcloud.log
