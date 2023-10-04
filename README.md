@@ -26,4 +26,4 @@ We're moving the test environment into [dev-stock](https://github.com/pondersour
 Then visit http://localhost:5800 and inside that browser visit https://nc1.docker
 
 ## Known issue
-https://github.com/pondersource/nextcloud-mfa-awareness/issues/86
+https://github.com/pondersource/nextcloud-mfa-awareness/issues/87
