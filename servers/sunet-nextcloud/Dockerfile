@@ -1,8 +1,9 @@
 FROM pondersource/dev-stock-nextcloud-sunet:1.0
 WORKDIR /var/www/html/apps
-RUN git clone --depth=1 https://github.com/nextcloud/globalsiteselector.git
-RUN apt install -yq composer
-RUN cd globalsiteselector && composer install
+RUN apt update && apt install -y git build-essential curl vim
+# RUN git clone --depth=1 https://github.com/nextcloud/globalsiteselector.git
+# RUN apt install -yq composer
+# RUN cd globalsiteselector && composer install
 RUN git clone --depth=1 https://github.com/pondersource/nextcloud-mfa-awareness.git
 ARG CACHEBUST=1
 RUN cd nextcloud-mfa-awareness && git pull
