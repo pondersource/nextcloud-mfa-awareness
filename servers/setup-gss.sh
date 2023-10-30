@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+# export DOCKER_CACHING=
+export DOCKER_CACHING=--no-cache
+
 echo Setting up full docker testnet for gss using docker-compose.
 if [ $1 = "" ]; then
 	SSPHOST=localhost:8082
@@ -20,11 +23,11 @@ echo Using http://$LEADER as the gss leader
 echo Using http://$FOLLOWER as the gss follower
 
 cd apache-php
-docker build . -t apache-php
+docker build . -t apache-php $DOCKER_CACHING
 cd ../sunet-nextcloud
-docker build . -t sunet-nextcloud
+docker build . -t sunet-nextcloud $DOCKER_CACHING
 cd ../simple-saml-php
-docker build . -t simple-saml-php
+docker build . -t simple-saml-php $DOCKER_CACHING
 cd ..
 DOCKER_BUILDKIT=0 docker compose build
 docker compose up -d
