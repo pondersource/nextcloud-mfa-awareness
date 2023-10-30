@@ -5,6 +5,7 @@ echo Enabling apps
 php console.php app:disable firstrunwizard
 php console.php app:enable globalsiteselector
 php console.php app:enable mfachecker
+php console.php app:enable mfazones
 echo Editing config
 sed -i "8 i\    2 => 'sunet-nc2'," config/config.php
 sed -i "8 i\    1 => 'mesh.pondersource.org'," config/config.php
