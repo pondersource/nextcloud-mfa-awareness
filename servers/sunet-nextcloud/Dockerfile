@@ -8,6 +8,8 @@ RUN git clone --depth=1 https://github.com/pondersource/nextcloud-mfa-awareness.
 ARG CACHEBUST=1
 RUN cd nextcloud-mfa-awareness && git pull
 RUN ln -s nextcloud-mfa-awareness/mfachecker
+RUN git clone --depth=1 https://github.com/pondersource/mfazones.git
+RUN cd mfazones && git pull
 WORKDIR /var/www/html
 ADD ./init-*.sh ./
 RUN chmod u+x init-*.sh
