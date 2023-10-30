@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 
-# export DOCKER_CACHING=
-export DOCKER_CACHING=--no-cache
+export DOCKER_CACHING=
+# export DOCKER_CACHING=--no-cache
 
 echo Setting up full docker testnet for gss using docker-compose.
 if [ $1 = "" ]; then
