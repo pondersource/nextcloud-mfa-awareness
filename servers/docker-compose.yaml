@@ -50,7 +50,7 @@ services:
   sunet-nc1:
     container_name: sunet-nc1
     tty: true
-    depends_on: 
+    depends_on:
       - base-app
       - sunet-mdb1
     build: 
@@ -61,7 +61,7 @@ services:
     networks:
       - testnet
     volumes:
-      - ./tls:/tls
+      - ./tls-sunet-nc1:/tls
       # - ../globalsiteselector:/var/www/html/apps/globalsiteselector
       # - ../user_saml:/var/www/html/apps/user_saml
   
@@ -77,7 +77,7 @@ services:
     networks:
       - testnet
     volumes:
-      - ./tls:/tls
+      - ./tls-sunet-nc2:/tls
       # - ../globalsiteselector:/var/www/html/apps/globalsiteselector
 
   sunet-ssp:
