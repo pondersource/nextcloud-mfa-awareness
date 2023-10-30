@@ -1,13 +1,4 @@
-FROM apache-php
-RUN apt update
-RUN rm -rf /var/www/html
-
-WORKDIR /var/www
-# See https://github.com/pondersource/nextcloud-mfa-awareness/issues/2#issuecomment-1291971029
-RUN wget https://download.nextcloud.com/server/releases/latest-24.zip
-RUN unzip latest-24.zip -d . && rm latest-24.zip
-RUN mv nextcloud html
-RUN chown -R www-data:www-data ./html
+FROM pondersource/dev-stock-nextcloud-sunet:7bde8444dc95
 WORKDIR /var/www/html/apps
 RUN git clone --depth=1 https://github.com/nextcloud/globalsiteselector.git
 RUN apt install -yq composer
