@@ -61,7 +61,7 @@ services:
     networks:
       - testnet
     volumes:
-      - ./tls-sunet-nc1:/tls
+      - ./tls-sunet-nc1:/tls-host
       # - ../globalsiteselector:/var/www/html/apps/globalsiteselector
       # - ../user_saml:/var/www/html/apps/user_saml
   
@@ -77,7 +77,7 @@ services:
     networks:
       - testnet
     volumes:
-      - ./tls-sunet-nc2:/tls
+      - ./tls-sunet-nc2:/tls-host
       # - ../globalsiteselector:/var/www/html/apps/globalsiteselector
 
   sunet-ssp:
