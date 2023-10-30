@@ -1,4 +1,4 @@
-FROM pondersource/dev-stock-nextcloud-sunet#7bde8444dc95
+FROM pondersource/dev-stock-nextcloud-sunet:1.0
 WORKDIR /var/www/html/apps
 RUN git clone --depth=1 https://github.com/nextcloud/globalsiteselector.git
 RUN apt install -yq composer
