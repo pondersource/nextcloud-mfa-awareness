@@ -30,6 +30,7 @@ the testnet.
 Using Docker on your laptop, the gss leader which exposes htttp://localhost:8080 will redirect you to
 http://localhost:8082 which is exposed by the SimpleSamlPhp server.
 This is also the default (when you just run `./setup-gss.sh`).
+Be aware of https://github.com/pondersource/nextcloud-mfa-awareness/issues/93
 
 ### `./setup-gss.sh mesh.pondersource.org`
 Using Docker-exposed ports over the internet, similar to using localhost, but with URLs like htttp://mesh.pondersource.org:8080 and http://mesh.pondersource.org:8082
