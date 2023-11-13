@@ -51,6 +51,9 @@ echo "Done waiting, chowning /var/www/html/config on sunet-nc1/2"
 docker exec sunet-nc1 chown -R www-data:www-data ./config
 docker exec sunet-nc2 chown -R www-data:www-data ./config
 
+echo "Building mfazones on host"
+docker exec --workdir /var/www/html/apps/mfazones sunet-nc2 make composer
+
 echo "Setting up gss leader (sunet-nc1)"
 docker exec -u www-data sunet-nc1 ./init-nc1-gss-leader.sh
 echo "Setting up gss follower (sunet-nc2)"

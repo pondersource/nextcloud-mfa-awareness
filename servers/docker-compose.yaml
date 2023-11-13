@@ -64,6 +64,7 @@ services:
       - ./tls-sunet-nc1:/tls-host
       # - ../globalsiteselector:/var/www/html/apps/globalsiteselector
       # - ../user_saml:/var/www/html/apps/user_saml
+      - ../mfazones:/var/www/html/apps/mfazones
   
   sunet-nc2:
     container_name: sunet-nc2
