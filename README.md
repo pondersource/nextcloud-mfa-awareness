@@ -1,14 +1,17 @@
 # nextcloud-mfa-awareness
 Make Nextcloud aware of whether the current user is logged in with Multi-Factor Authentication
 
+Production parts (pending security audit in milestone 6):
+* the 'mfazones' app in the Nextcloud app store: https://apps.nextcloud.com/apps/mfazones
+* the 'mfazones' app source code: https://github.com/pondersource/mfazones
+* our contribution to NC user_saml: https://github.com/nextcloud/user_saml/pull/668 (merged)
+* our contribution to NC GSS: https://github.com/nextcloud/globalsiteselector/pull/80 (merged)
+* our contribution to NC MFA: https://github.com/nextcloud/server/pull/39411 (pending)
+* our contribution to NC workflow engine: https://github.com/nextcloud/server/pull/40235 (pending)
 
-The [mfachecker Nextcloud app](./mfachecker) in this repo demonstrates how it is possible to check if the current user is logged in with
-multi-factor authentication (MFA) or not.
-
-Requirements:
-* [Docker](https://docs.docker.com/engine/install/)
-* Possibly also [Docker Compose Plugin](https://github.com/pondersource/nextcloud-mfa-awareness/issues/5)
-* Have the attribute-forwarding branch of https://github.com/pondersource/globalsiteselector/ checked out to /root/globalsiteselector
+Research parts:
+* this documentation repo: https://github.com/pondersource/nextcloud-mfa-awareness#nextcloud-mfa-awareness
+* the 'mfachecker' app inside there (demonstration and research purposes only): https://github.com/pondersource/nextcloud-mfa-awareness/tree/main/mfachecker
 
 Usage:
 ```
@@ -36,26 +39,3 @@ Be aware of https://github.com/pondersource/nextcloud-mfa-awareness/issues/93
 Using Docker-exposed ports over the internet, similar to using localhost, but with URLs like htttp://mesh.pondersource.org:8080 and http://mesh.pondersource.org:8082
 This will probably not work though, depending on your browser, the SSP server may say you have cookies disabled and not
 show the login screen.
-
-If you're running this on a Windows host system, you can try `setup.bat` instead.
-
-If you run this on localhost, depending on the host system, you may be able to access the Nextcloud GUI on https://sunet-nc2/ or https://localhost:8081/.
-If you run this on mesh.pondersource.org, try http://mesh.pondersource.org:8081 (Admin / !QAZ1qaz).
-
-Login may not work on http://mesh.pondersource.org:8081 (keeps showing the login page), when this happens, try
- http://mesh.pondersource.org:5800 and then visit http://sunet-nc2 using the browser-inside-a-browser.
-
-In the case of `./setup-gss.sh`, the gss leader will be accessable on  https://sunet-nc1/ / https://\<host\>:8080/
-
-NB 2: For the webauthn flow you will need to run this on a DNS-addressable server, and copy the true TLS cert/key files into ./tls:
-```
-cp /etc/letsencrypt/live/mesh.pondersource.org/fullchain.pem tls/server.cert
-cp /etc/letsencrypt/live/mesh.pondersource.org/privkey.pem tls/server.key
-```
-Then you can run: `./setup-with-tls.sh webauthn`
-Note that on mesh.pondersource.org you'll have to flush iptables to get this to work, and after that,
-restart the server if you want to go back to using the regular `./setup.sh` script.
-
-NB 3: If you run two setup scripts in a row, the docker containers from the previous run will still be around.
-If you want to kill and remove *all* Docker containers on the host (including possibly unrelated ones that were started by
-other processes or users), run `./clean.sh`). Use at your own risk. :)

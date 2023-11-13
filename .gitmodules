@@ -1,6 +1,21 @@
 [submodule "globalsiteselector"]
 	path = globalsiteselector
 	url = https://github.com/pondersource/globalsiteselector
+	branch = sunet-dev
 [submodule "user_saml"]
 	path = user_saml
-	url = https://github.com/pondersource/user_saml
+	url = https://github.com/nextcloud/user_saml
+	branch = stable-5.2
+[submodule "server"]
+	path = server
+	url = https://github.com/pondersource/server.git
+	branch = sunet-dev
+[submodule "mfazones"]
+	path = mfazones
+	url = https://github.com/pondersource/mfazones.git
+[submodule "files_accesscontrol"]
+	path = files_accesscontrol
+	url = https://github.com/nextcloud/files_accesscontrol
+[submodule "twofactor_totp"]
+	path = twofactor_totp
+	url = https://github.com/nextcloud/twofactor_totp.git

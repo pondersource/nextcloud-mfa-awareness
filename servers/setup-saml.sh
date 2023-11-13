@@ -6,21 +6,19 @@ cd ./simple-saml-php
 docker build . -t simple-saml-php
 cd ..
 
-echo "Starting the mariadb containers"
-docker run -d --network=testnet --name=sunet-mdb2 \
-  -e "MARIADB_ROOT_PASSWORD=r00tp@ssw0rd" -e "MARIADB_PASSWORD=userp@ssword" \
-  -e "MARIADB_USER=nextcloud" -e "MARIADB_DATABASE=nextcloud" mariadb
-docker run -d --network=testnet --name=sunet-ssp-mdb \
-  -e "MARIADB_ROOT_PASSWORD=r00tp@ssw0rd" -e "MARIADB_PASSWORD=sspus3r" \
-  -e "MARIADB_USER=sspuser" -e "MARIADB_DATABASE=saml" mariadb
+echo Rebuilding the apache-php image
+cd ./apache-php
+docker build . -t apache-php
+cd ..
 
-echo "Starting the Nextcloud container"
-docker run -d --network=testnet --name=sunet-nc2  sunet-nextcloud
-echo "Starting the SSP container"
-docker run -d --network=testnet --name=sunet-ssp simple-saml-php
+echo Rebuilding the sunet-nextcloud image
+cd ./sunet-nextcloud
+docker build . -t sunet-nextcloud
+cd ..
 
-echo "Adding Firefox tester"
-docker run -d --name=firefox -p 5800:5800 -v /tmp/shm:/config:rw --network=testnet --shm-size 2g jlesage/firefox:v1.17.1
+echo "Starting the containers"
+docker compose -f docker-compose-saml.yaml  up -d 
+echo "Containers started"
 
 x=$(docker exec -it sunet-mdb2 ss -tulpn | grep 3306 | wc -l)
 until [ $x -ne 0 ]
@@ -31,15 +29,23 @@ do
 done
 echo sunet-mdb2 port is open
 
-echo "chowning /var/www/html/config on sunet-nc2"
-docker exec sunet-nc2 chown -R www-data:www-data ./config
+echo "chowning /var/www/html on sunet-nc2"
+docker exec sunet-nc2 chown -R www-data:www-data .
+
+echo "Installing dependencies of apps"
+docker exec -it --workdir=/var/www/html/apps/user_saml sunet-nc2 composer install
+docker exec -it --workdir=/var/www/html/apps/mfachecker sunet-nc2 make
+docker exec -it --workdir=/var/www/html/apps/files_accesscontrol sunet-nc2 composer install
+docker exec -it --workdir=/var/www/html/apps/mfazones sunet-nc2 composer install
+docker exec -it --workdir=/var/www/html/apps/twofactor_totp sunet-nc2 composer install
+
 
 echo "Configuring user_saml on sunet-nc2"
 docker exec -u www-data sunet-nc2 ./init-nc2-local-saml.sh
 docker exec -it sunet-mdb2 mysql -u nextcloud -puserp@ssword -h sunet-mdb2 nextcloud -e "INSERT INTO oc_appconfig (appid, configkey, configvalue) VALUES \
 (\"user_saml\", \"type\", \"saml\")"
 docker exec -it sunet-mdb2 mysql -u nextcloud -puserp@ssword -h sunet-mdb2 nextcloud -e "INSERT INTO oc_user_saml_configurations (id, name, configuration) VALUES \
-(1, \"samlidp\", \"{\
+(1, \"samlidp\", \"{\ 
 \\\"general-uid_mapping\\\":\\\"username\\\",\
 \\\"general-idp0_display_name\\\":\\\"samlidp\\\",\
 \\\"idp-entityId\\\":\\\"http:\/\/sunet-ssp\/simplesaml\/saml2\/idp\/metadata.php\\\",\
@@ -70,7 +76,7 @@ password varbinary(255), \
 display_name varchar(255), \
 mfa_verified boolean \
 )"
-docker exec -it sunet-mdb1 mysql -u sspuser -psspus3r -h sunet-ssp-mdb saml -e "INSERT INTO users \
-(username, password, display_name, location, mfa_verified) VALUES \
-(\"usr1\", AES_ENCRYPT(\"pwd1\", \"SECRET\"), \"user 1\", \"http://$FOLLOWER\", true), \
-(\"usr2\", AES_ENCRYPT(\"pwd2\", \"SECRET\"), \"user 2\", \"http://$FOLLOWER\", false)"
+docker exec -it sunet-ssp-mdb mysql -u sspuser -psspus3r -h sunet-ssp-mdb saml -e "INSERT INTO users \
+(username, password, display_name, mfa_verified) VALUES \
+(\"usr1\", AES_ENCRYPT(\"pwd1\", \"SECRET\"), \"user 1\", true), \
+(\"usr2\", AES_ENCRYPT(\"pwd2\", \"SECRET\"), \"user 2\", false)"
