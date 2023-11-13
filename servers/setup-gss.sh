@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+export DOCKER_CACHING=
+# export DOCKER_CACHING=--no-cache
+
 echo Setting up full docker testnet for gss using docker-compose.
 if [ $1 = "" ]; then
 	SSPHOST=localhost:8082
@@ -20,11 +23,11 @@ echo Using http://$LEADER as the gss leader
 echo Using http://$FOLLOWER as the gss follower
 
 cd apache-php
-docker build . -t apache-php
+docker build . -t apache-php $DOCKER_CACHING
 cd ../sunet-nextcloud
-docker build . -t sunet-nextcloud
+docker build . -t sunet-nextcloud $DOCKER_CACHING
 cd ../simple-saml-php
-docker build . -t simple-saml-php
+docker build . -t simple-saml-php $DOCKER_CACHING
 cd ..
 DOCKER_BUILDKIT=0 docker compose build
 docker compose up -d
@@ -53,9 +56,9 @@ echo "Setting up gss follower (sunet-nc2)"
 docker exec -u www-data -e LEADER="$LEADER" sunet-nc2 ./init-nc2-gss-follower.sh
 
 echo "Configuring user_saml on sunet-nc1"
-docker exec -it sunet-mdb1 mysql -u nextcloud -puserp@ssword -h sunet-mdb1 nextcloud -e "INSERT INTO oc_appconfig (appid, configkey, configvalue) VALUES \
+docker exec -it sunet-mdb1 mariadb -u nextcloud -puserp@ssword -h sunet-mdb1 nextcloud -e "INSERT INTO oc_appconfig (appid, configkey, configvalue) VALUES \
 (\"user_saml\", \"type\", \"saml\")"
-docker exec -it sunet-mdb1 mysql -u nextcloud -puserp@ssword -h sunet-mdb1 nextcloud -e "INSERT INTO oc_user_saml_configurations (id, name, configuration) VALUES \
+docker exec -it sunet-mdb1 mariadb -u nextcloud -puserp@ssword -h sunet-mdb1 nextcloud -e "INSERT INTO oc_user_saml_configurations (id, name, configuration) VALUES \
 (1, \"samlidp\", \"{\
 \\\"general-uid_mapping\\\":\\\"username\\\",\
 \\\"general-idp0_display_name\\\":\\\"samlidp\\\",\
@@ -82,14 +85,14 @@ IIKsVDQgUIDr+KPqQbC4OEsGUCW8bybibdwNdtYgNpDYwysgYHgWDsRdmDmkh5Ly\
 Q8CODPPBMk+mAN+xC5hX\\\",\
 \\\"saml-attribute-mapping-displayName_mapping\\\":\\\"display_name\\\",\
 \\\"saml-attribute-mapping-mfa_mapping\\\":\\\"mfa_verified\\\"}\")"
-docker exec -it sunet-mdb1 mysql -u sspuser -psspus3r -h sunet-ssp-mdb saml -e "CREATE TABLE users (\
+docker exec -it sunet-mdb1 mariadb -u sspuser -psspus3r -h sunet-ssp-mdb saml -e "CREATE TABLE users (\
 username varchar(255), \
 password varbinary(255), \
 display_name varchar(255), \
 location varchar(255), \
 mfa_verified boolean \
 )"
-docker exec -it sunet-mdb1 mysql -u sspuser -psspus3r -h sunet-ssp-mdb saml -e "INSERT INTO users \
+docker exec -it sunet-mdb1 mariadb -u sspuser -psspus3r -h sunet-ssp-mdb saml -e "INSERT INTO users \
 (username, password, display_name, location, mfa_verified) VALUES \
 (\"usr1\", AES_ENCRYPT(\"pwd1\", \"SECRET\"), \"user 1\", \"http://$FOLLOWER\", true), \
 (\"usr2\", AES_ENCRYPT(\"pwd2\", \"SECRET\"), \"user 2\", \"http://$FOLLOWER\", false)"
