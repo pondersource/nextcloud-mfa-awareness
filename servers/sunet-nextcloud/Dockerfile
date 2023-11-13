@@ -6,10 +6,10 @@ RUN apt update && apt install -y git build-essential curl vim
 # RUN cd globalsiteselector && composer install
 RUN git clone --depth=1 https://github.com/pondersource/nextcloud-mfa-awareness.git
 ARG CACHEBUST=1
-RUN cd nextcloud-mfa-awareness && git pull
+RUN cd nextcloud-mfa-awareness && git config pull.rebase true && git pull
 RUN ln -s nextcloud-mfa-awareness/mfachecker
 RUN git clone --depth=1 https://github.com/pondersource/mfazones.git
-RUN cd mfazones && git pull
+RUN cd mfazones && git config pull.rebase true && git pull
 WORKDIR /var/www/html
 ADD ./init-*.sh ./
 RUN chmod u+x init-*.sh

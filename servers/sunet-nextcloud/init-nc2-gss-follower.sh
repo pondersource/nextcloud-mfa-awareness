@@ -6,7 +6,7 @@ php console.php app:disable firstrunwizard
 php console.php app:enable globalsiteselector
 php console.php app:enable mfachecker
 php console.php app:enable files_accesscontrol
-# php console.php app:enable twofactor_totp - this causes an internal server error when Admin/!QAZ1qaz logs in on http://sunet-nc2/index.php/login?direct=1. It also seems to have been the cause of #94 and #92! :D
+php console.php app:enable twofactor_totp
 php console.php app:enable mfazones
 echo Editing config
 sed -i "8 i\    2 => 'sunet-nc2'," config/config.php
