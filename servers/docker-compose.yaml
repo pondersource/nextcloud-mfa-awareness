@@ -62,8 +62,7 @@ services:
       - testnet
     volumes:
       - ./tls-sunet-nc1:/tls-host
-      - ../mfazones:/var/www/html/apps/mfazones
-  
+  # 
   sunet-nc2:
     container_name: sunet-nc2
     tty: true
@@ -78,6 +77,7 @@ services:
     volumes:
       - ./tls-sunet-nc2:/tls-host
       - ../mfazones:/var/www/html/apps/mfazones
+      - ../mfachecker:/var/www/html/apps/mfachecker
 
   sunet-ssp:
     container_name: sunet-ssp

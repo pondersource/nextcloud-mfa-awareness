@@ -25,10 +25,10 @@ echo Using http://$FOLLOWER as the gss follower
 cd apache-php
 docker build . -t apache-php $DOCKER_CACHING
 cd ../sunet-nextcloud
-# docker build . -t sunet-nextcloud $DOCKER_CACHING --build-arg CACHEBUST=1234
-docker build . -t sunet-nextcloud $DOCKER_CACHING --build-arg CACHEBUST=1234
+# docker build -t sunet-nextcloud $DOCKER_CACHING --build-arg="CACHEBUST=1234" .
+docker build -t sunet-nextcloud $DOCKER_CACHING --build-arg="CACHEBUST=123456" .
 cd ../simple-saml-php
-docker build . -t simple-saml-php $DOCKER_CACHING
+docker build -t simple-saml-php $DOCKER_CACHING .
 cd ..
 DOCKER_BUILDKIT=0 docker compose build
 docker compose up -d
