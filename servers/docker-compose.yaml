@@ -95,7 +95,7 @@ services:
     ports:
       - 5800:5800
     shm_size: '2gb'
-    volumes:
-      - /tmp/shm:/config:rw
+    # volumes:
+    #   - /tmp/shm:/config:rw
     networks:
       - testnet
