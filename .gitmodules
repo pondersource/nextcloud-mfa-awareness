@@ -1,3 +1,6 @@
 [submodule "mfazones"]
 	path = mfazones
 	url = http://github.com/pondersource/mfazones
+[submodule "text"]
+	path = text
+	url = https://github.com/nextcloud/text
