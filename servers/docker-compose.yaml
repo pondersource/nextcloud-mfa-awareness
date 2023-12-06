@@ -28,7 +28,7 @@ services:
       - testnet
 
   sunet-mdb3:
-    container_name: sunet-mdb4
+    container_name: sunet-mdb3
     image: mariadb
     # volumes:
     #   - ~/apps/mariadb:/var/lib/mysql
