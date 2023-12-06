@@ -101,7 +101,7 @@ services:
       - sunet-mdb3
     image: "sunet-nextcloud"
     ports:
-      - "8082:80"
+      - "8083:80"
     networks:
       - testnet
     volumes:
