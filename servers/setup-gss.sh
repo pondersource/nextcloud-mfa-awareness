@@ -43,8 +43,8 @@ function waitForMysql {
   echo $1 port is open
 }
 waitForMysql sunet-mdb1
-# waitForMysql sunet-mdb2
-# waitForMysql sunet-mdb3
+waitForMysql sunet-mdb2
+waitForMysql sunet-mdb3
 waitForMysql sunet-ssp-mdb
 
 echo "Done waiting, chowning /var/www/html/config on sunet-nc1/2/3"
