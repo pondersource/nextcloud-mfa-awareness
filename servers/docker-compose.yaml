@@ -78,6 +78,7 @@ services:
       - ./tls-sunet-nc2:/tls-host
       - ../mfazones:/var/www/html/apps/mfazones
       - ../mfachecker:/var/www/html/apps/mfachecker
+      # - ../text:/var/www/html/apps/text
 
   sunet-ssp:
     container_name: sunet-ssp
