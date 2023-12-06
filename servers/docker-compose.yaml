@@ -27,6 +27,19 @@ services:
     networks:
       - testnet
 
+  sunet-mdb3:
+    container_name: sunet-mdb4
+    image: mariadb
+    # volumes:
+    #   - ~/apps/mariadb:/var/lib/mysql
+    environment: 
+      - MARIADB_ROOT_PASSWORD=r00tp@ssw0rd
+      - MARIADB_PASSWORD=userp@ssword
+      - MARIADB_USER=nextcloud
+      - MARIADB_DATABASE=nextcloud
+    networks:
+      - testnet
+
   sunet-ssp-mdb:
     container_name: sunet-ssp-mdb
     image: mariadb
@@ -76,6 +89,23 @@ services:
       - testnet
     volumes:
       - ./tls-sunet-nc2:/tls-host
+      - ../mfazones:/var/www/html/apps/mfazones
+      - ../mfachecker:/var/www/html/apps/mfachecker
+      # - ../text:/var/www/html/apps/text
+
+  sunet-nc3:
+    container_name: sunet-nc3
+    tty: true
+    depends_on: 
+      - base-app
+      - sunet-mdb3
+    image: "sunet-nextcloud"
+    ports:
+      - "8082:80"
+    networks:
+      - testnet
+    volumes:
+      - ./tls-sunet-nc3:/tls-host
       - ../mfazones:/var/www/html/apps/mfazones
       - ../mfachecker:/var/www/html/apps/mfachecker
       # - ../text:/var/www/html/apps/text

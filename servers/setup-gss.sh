@@ -6,21 +6,20 @@ export DOCKER_CACHING=
 
 echo Setting up full docker testnet for gss using docker-compose.
 if [ $1 = "" ]; then
-	SSPHOST=localhost:8082
-  LEADER=localhost:8080
-  FOLLOWER=localhost:8081
+  echo ERROR on this branch only testnet is supported
+  exit 1
 elif [ $1 = "testnet" ]; then
 	SSPHOST=sunet-ssp
   LEADER=sunet-nc1
-  FOLLOWER=sunet-nc2
+  FOLLOWER1=sunet-nc2
+  FOLLOWER2=sunet-nc3
 else
-	SSPHOST=$1:8082
-  LEADER=$1:8080
-  FOLLOWER=$1:8081
+  echo ERROR on this branch only testnet is supported
+  exit 1
 fi
 echo Using http://$SSPHOST as the ssp host
 echo Using http://$LEADER as the gss leader
-echo Using http://$FOLLOWER as the gss follower
+echo Using http://$FOLLOWER1 and http://$FOLLOWER2 as the gss followers
 
 cd apache-php
 docker build . -t apache-php $DOCKER_CACHING
@@ -44,12 +43,14 @@ function waitForMysql {
   echo $1 port is open
 }
 waitForMysql sunet-mdb1
-waitForMysql sunet-mdb2
+# waitForMysql sunet-mdb2
+# waitForMysql sunet-mdb3
 waitForMysql sunet-ssp-mdb
 
-echo "Done waiting, chowning /var/www/html/config on sunet-nc1/2"
+echo "Done waiting, chowning /var/www/html/config on sunet-nc1/2/3"
 docker exec sunet-nc1 chown -R www-data:www-data ./config
 docker exec sunet-nc2 chown -R www-data:www-data ./config
+docker exec sunet-nc3 chown -R www-data:www-data ./config
 
 echo "Building mfazones on host"
 docker exec --workdir /var/www/html/apps/mfazones sunet-nc2 make composer
@@ -58,6 +59,8 @@ echo "Setting up gss leader (sunet-nc1)"
 docker exec -u www-data sunet-nc1 ./init-nc1-gss-leader.sh
 echo "Setting up gss follower (sunet-nc2)"
 docker exec -u www-data -e LEADER="$LEADER" sunet-nc2 ./init-nc2-gss-follower.sh
+echo "Setting up gss follower (sunet-nc3)"
+docker exec -u www-data -e LEADER="$LEADER" sunet-nc3 ./init-nc3-gss-follower.sh
 
 echo "Configuring user_saml on sunet-nc1"
 docker exec -it sunet-mdb1 mariadb -u nextcloud -puserp@ssword -h sunet-mdb1 nextcloud -e "INSERT INTO oc_appconfig (appid, configkey, configvalue) VALUES \
@@ -98,5 +101,7 @@ mfa_verified boolean \
 )"
 docker exec -it sunet-mdb1 mariadb -u sspuser -psspus3r -h sunet-ssp-mdb saml -e "INSERT INTO users \
 (username, password, display_name, location, mfa_verified) VALUES \
-(\"usr1\", AES_ENCRYPT(\"pwd1\", \"SECRET\"), \"user 1\", \"http://$FOLLOWER\", true), \
-(\"usr2\", AES_ENCRYPT(\"pwd2\", \"SECRET\"), \"user 2\", \"http://$FOLLOWER\", false)"
+(\"usr1\", AES_ENCRYPT(\"pwd1\", \"SECRET\"), \"user 1\", \"http://$FOLLOWER1\", true), \
+(\"usr2\", AES_ENCRYPT(\"pwd2\", \"SECRET\"), \"user 2\", \"http://$FOLLOWER1\", false), \
+(\"usr3\", AES_ENCRYPT(\"pwd3\", \"SECRET\"), \"user 3\", \"http://$FOLLOWER2\", true), \
+(\"usr4\", AES_ENCRYPT(\"pwd4\", \"SECRET\"), \"user 4\", \"http://$FOLLOWER2\", false)"
