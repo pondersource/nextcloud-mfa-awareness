@@ -10,6 +10,9 @@ RUN cd nextcloud-mfa-awareness && git config pull.rebase true && git pull
 RUN ln -s nextcloud-mfa-awareness/mfachecker
 RUN git clone --depth=1 https://github.com/pondersource/mfazones.git
 RUN cd mfazones && git config pull.rebase true && git pull
+RUN apt install -yq wget
+RUN wget https://github.com/SUNET/nextcloud-stepupauth/releases/download/v0.2.0/stepupauth-0.2.0.tar.gz
+RUN tar xzf stepupauth-0.2.0.tar.gz
 WORKDIR /var/www/html
 ADD ./init-*.sh ./
 RUN chmod u+x init-*.sh
