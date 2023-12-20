@@ -18,6 +18,9 @@ WORKDIR /var/www/html
 # including some console.log statements for debugging that patch:
 RUN wget https://github.com/pondersource/server/commit/216a7f3fade1117b67a21e977a6c1628f9aa5ab5.diff
 RUN patch -p 1 < 216a7f3fade1117b67a21e977a6c1628f9aa5ab5.diff
+RUN wget https://github.com/pondersource/server/commit/b3d907498c8c1fb17012161a59514d338b0127e9.diff
+RUN patch -p 1 < b3d907498c8c1fb17012161a59514d338b0127e9.diff
+
 ADD ./init-*.sh ./
 RUN chmod u+x init-*.sh
 ENV PHP_MEMORY_LIMIT="512M"
