@@ -20,8 +20,8 @@ RUN patch -p 1 < 4888e518eb09d8dfc35df3b21c17f511011d8ad7.diff
 # console.log statements for debugging that patch:
 RUN wget https://github.com/pondersource/server/commit/0fb14a012c9720e777a0ab8c7142c2293ec26cb9.diff
 RUN patch -p 1 < 0fb14a012c9720e777a0ab8c7142c2293ec26cb9.diff
-RUN wget https://github.com/pondersource/server/commit/b519e4ec435621015819ded04f2421eb643771bd.diff
-RUN patch -p 1 < b519e4ec435621015819ded04f2421eb643771bd.diff
+# RUN wget https://github.com/pondersource/server/commit/b519e4ec435621015819ded04f2421eb643771bd.diff
+# RUN patch -p 1 < b519e4ec435621015819ded04f2421eb643771bd.diff
 ADD ./init-*.sh ./
 RUN chmod u+x init-*.sh
 ENV PHP_MEMORY_LIMIT="512M"
