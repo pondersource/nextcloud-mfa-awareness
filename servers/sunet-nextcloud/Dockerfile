@@ -14,8 +14,12 @@ RUN apt install -yq wget
 RUN wget https://github.com/SUNET/nextcloud-stepupauth/releases/download/v0.2.0/stepupauth-0.2.0.tar.gz
 RUN tar xzf stepupauth-0.2.0.tar.gz
 WORKDIR /var/www/html
+# pass on the requires-mfa DAV property into a data- attribute through the client JS code that does the PROPFIND:
 RUN wget https://github.com/pondersource/server/commit/4888e518eb09d8dfc35df3b21c17f511011d8ad7.diff
 RUN patch -p 1 < 4888e518eb09d8dfc35df3b21c17f511011d8ad7.diff
+# console.log statements for debugging that patch:
+RUN wget https://github.com/pondersource/server/commit/0fb14a012c9720e777a0ab8c7142c2293ec26cb9.diff
+RUN patch -p 1 < 0fb14a012c9720e777a0ab8c7142c2293ec26cb9.diff
 ADD ./init-*.sh ./
 RUN chmod u+x init-*.sh
 ENV PHP_MEMORY_LIMIT="512M"
