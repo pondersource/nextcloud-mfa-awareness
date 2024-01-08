@@ -23,7 +23,7 @@ WORKDIR /var/www/html
 
 # See https://github.com/pondersource/nextcloud-mfa-awareness/issues/107#issuecomment-1881166499
 RUN wget https://github.com/pondersource/server/commit/168036570f4.diff
-RUN patch -p 1 < https://github.com/pondersource/server/commit/168036570f4.diff
+RUN patch -p 1 < 168036570f4.diff
 
 ADD ./init-*.sh ./
 RUN chmod u+x init-*.sh
