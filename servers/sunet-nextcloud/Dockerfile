@@ -21,6 +21,10 @@ WORKDIR /var/www/html
 # RUN wget https://github.com/pondersource/server/commit/b3d907498c8c1fb17012161a59514d338b0127e9.diff
 # RUN patch -p 1 < b3d907498c8c1fb17012161a59514d338b0127e9.diff
 
+# See https://github.com/pondersource/nextcloud-mfa-awareness/issues/107#issuecomment-1881166499
+RUN wget https://github.com/pondersource/server/commit/168036570f4.diff
+RUN patch -p 1 < https://github.com/pondersource/server/commit/168036570f4.diff
+
 ADD ./init-*.sh ./
 RUN chmod u+x init-*.sh
 ENV PHP_MEMORY_LIMIT="512M"
